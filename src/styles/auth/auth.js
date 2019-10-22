@@ -18,13 +18,10 @@ module.exports = StyleSheet.create({
         flex: 1,
     },
 
-    joinSwiperSlide: {
-    },
-
     authFormWrapper: {
         flex: 1,
         backgroundColor: '#02C8A7',
-        marginTop: hp(30),
+        marginTop: hp(90),
     },
 
     authFormContainer: {
@@ -107,7 +104,7 @@ module.exports = StyleSheet.create({
     },
 
     loginBtnWrapper: {
-        marginTop: hp(107),
+        marginTop: hp(47),
         color: "#ffffff",
     },
 
@@ -116,7 +113,7 @@ module.exports = StyleSheet.create({
     },
 
     thirdLoginWrapper: {
-        marginTop: hp(97),
+        marginTop: hp(57),
         marginBottom: hp(46)
     },
 

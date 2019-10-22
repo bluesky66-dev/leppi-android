@@ -1,44 +1,31 @@
 import {StyleSheet} from 'react-native';
 import {widthPercentage as wp, heightPercentage as hp} from '../../util';
-import { Dimensions } from 'react-native';
-let screenWidth = Dimensions.get('window').width;
 
 module.exports = StyleSheet.create({
 
     contentWrapper: {
-        height: hp(300),
         backgroundColor: '#02C8A7',
-    },
-
-    headerRound: {
-        position: 'absolute',
-        top: hp(-73),
-        left: wp(-74),
-        width: wp(523),
-        height: hp(373),
-        zIndex: 0
-    },
-
-    backIcon: {
-        position: "absolute",
-        top: hp(48),
-        left: wp(33),
-        width: wp(22),
-        height: hp(20),
-        backgroundColor: 'transparent',
-        zIndex: 3,
-    },
-
-    backIconStyle: {
-        width: 22,
-        height: 20,
-        resizeMode: 'stretch',
+        paddingBottom: hp(13),
     },
 
     appHeader: {
         width: '100%',
-        height: hp(250),
+        height: hp(50),
+        backgroundColor: '#35d3b9',
         zIndex: 2
+    },
+
+    headerRound: {
+        position: 'absolute',
+        top: wp(-275),
+        width: wp(375),
+        height: wp(375),
+        backgroundColor: '#35d3b9',
+        borderRadius: wp(188),
+        transform: [
+            {scaleX: 1.5}
+        ],
+        zIndex: 1
     },
 
     headerText: {
@@ -91,7 +78,7 @@ module.exports = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: hp(7),
         left: wp(25),
-        top: hp(-31),
+        top: wp(-11),
     },
 
     stepDot2: {
@@ -101,7 +88,7 @@ module.exports = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: hp(7),
         left: wp(129),
-        top: hp(3),
+        top: wp(17),
     },
 
     stepDot3: {
@@ -111,7 +98,7 @@ module.exports = StyleSheet.create({
         backgroundColor: "#ffffff",
         borderRadius: hp(7),
         left: wp(234),
-        top: hp(3),
+        top: wp(17),
     },
 
     stepDot4: {
@@ -121,6 +108,6 @@ module.exports = StyleSheet.create({
         backgroundColor: "#ffffff",
         borderRadius: hp(7),
         left: wp(338),
-        top: hp(-31),
+        top: wp(-11),
     },
 });

@@ -32,9 +32,9 @@ class Start extends Component {
             BackHandler.exitApp();
         }
 
-        // push.checkPermission();
-        // push.notificationListener();
-        // push.createChannel();
+        push.checkPermission();
+        push.notificationListener();
+        push.createChannel();
 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
@@ -63,20 +63,20 @@ class Start extends Component {
         );
 
         try {
-            // firebase.dynamicLinks()
-            //     .getInitialLink()
-            //     .then((url) => {
-            //         if (url) {
-            //             // app opened from a dynamic link URL
-            //             const groupId = url.split('/').pop();
-            //             const userId = url.split('/').pop();
-            //
-            //             // console.log('GROUP ID ======= ', groupId);
-            //             // console.log('USER ID ======== ', userId);
-            //
-            //             this.props.authActions(userId, groupId);
-            //         }
-            //     });
+            firebase.dynamicLinks()
+                .getInitialLink()
+                .then((url) => {
+                    if (url) {
+                        // app opened from a dynamic link URL
+                        const groupId = url.split('/').pop();
+                        const userId = url.split('/').pop();
+
+                        // console.log('GROUP ID ======= ', groupId);
+                        // console.log('USER ID ======== ', userId);
+
+                        this.props.authActions(userId, groupId);
+                    }
+                });
             this.authSubscription = firebase.auth().onAuthStateChanged(async (user) => {
                 if (this.props.navigation.state && this.props.navigation.state.routeName !== 'Register' && this.props.navigation.state.routeName !== 'Password') {
                     if (user) {
@@ -125,23 +125,24 @@ class Start extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.containerScroll}>
-                    <Text style={[styles.welcomeText]}>Leppi</Text>
-                    <View style={styles.logoCotainer}>
-                        <Image style={styles.logoimage} source={logoimage} resizeMode="contain"/>
+                <View style={styles.startBox}>
+                    <View style={styles.logoBox}>
+                        <View style={styles.logoCotainer}>
+                            <Image style={styles.logoimage} source={logoimage}/>
+                        </View>
+                        <Text style={[styles.welcomeText]}>Leppi</Text>
                     </View>
                     <Button style={[styles.btnLogin]} onPress={this._onLogin} btnText={"Login"}/>
-                    <Button style={[styles.btnRegister]} onPress={this._onRegister} btnText={"Register"} bordered/>
-                </ScrollView>
+                    <Button style={[styles.btnRegister]} onPress={this._onRegister} btnText={"Cadastre-se"} bordered/>
+                    <View style={{height: 107}}/>
+                </View>
             </View>
         );
     }
 }
 
 function mapStateToProps(state, props) {
-    return {
-
-    }
+    return {}
 }
 
 const mapDispatchToProps = (dispatch) => {

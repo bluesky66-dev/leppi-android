@@ -10,30 +10,40 @@ module.exports = StyleSheet.create({
   },
 
   containerScroll: {
-    flex: 1,
+    flex: 1
+  },
+
+  startBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
+  },
+
+  logoBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: wp(22),
+    flexDirection: 'row',
   },
 
   welcomeText: {
-    marginTop: hp(154),
     fontWeight: "400",
     fontFamily: "Raleway-Bold",
-    fontSize: hp(46),
-    marginBottom: hp(68),
+    fontSize: hp(32),
     color: "#ffffff",
-    textAlign: "center"
+    textAlign: "center",
+    marginLeft: wp(6),
+    marginRight: wp(20),
   },
 
   logoCotainer: {
     alignSelf: "center",
-    width: wp(312),
-    height: hp(282),
-    marginBottom: hp(83),
   },
 
   logoimage: {
     alignSelf: "flex-start",
-    width: wp(282),
-    height: hp(282),
+    width: hp(56),
+    height: hp(56),
   },
 
   btnContainer: {
@@ -72,11 +82,9 @@ module.exports = StyleSheet.create({
   },
 
   btnLogin: {
-    marginTop: hp(85)
   },
 
   btnRegister: {
-    marginTop: hp(10),
   },
 
   loginButtonText: {

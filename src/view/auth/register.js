@@ -225,24 +225,24 @@ class Register extends Component {
 
     render() {
         let swiperStyle = {};
-        swiperStyle.height = hp(404);
-        let title = "Next";
+        swiperStyle.height = hp(384);
+        let title = "Próximo";
         switch (this.state.step_index) {
             case 1:
-                swiperStyle.height = hp(404);
+                swiperStyle.height = hp(384);
                 break;
             case 2:
-                swiperStyle.height = hp(404);
+                swiperStyle.height = hp(384);
                 break;
             case 3:
-                swiperStyle.height = hp(404);
+                swiperStyle.height = hp(384);
                 break;
             case 4:
-                swiperStyle.height = hp(512);
+                swiperStyle.height = hp(492);
                 break;
             case 5:
-                swiperStyle.height = hp(404);
-                title = "Create Group";
+                swiperStyle.height = hp(384);
+                title = "Criar Grupo";
                 break;
         }
         return (
