@@ -11,6 +11,7 @@ export default class DateInput extends Component {
 
         this.state = {
             date: new Date(),
+            mode: 'date',
             isDateTimePickerVisible: false
         };
     }
@@ -22,12 +23,12 @@ export default class DateInput extends Component {
         this.setState({ isDateTimePickerVisible: false });
     };
 
-    handleDatePicked = newDate => {
+    handleDatePicked = (event, newDate) => {
         newDate = newDate || this.state.date;
         console.log('====== newDate', newDate);
+        this.hideDateTimePicker();
         this.props.onChangeText(   date.format(newDate, 'MM/DD/YYYY'));
         this.setState({date: newDate});
-        this.hideDateTimePicker();
     };
 
     render() {
@@ -47,7 +48,7 @@ export default class DateInput extends Component {
                 { isDateTimePickerVisible && <DateTimePicker
                     value={date}
                     mode={mode}
-                    display="default"
+                    display="spinner"
                     onChange={this.handleDatePicked} />
                 }
             </View>

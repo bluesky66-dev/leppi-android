@@ -21,7 +21,7 @@ module.exports = StyleSheet.create({
     authFormWrapper: {
         flex: 1,
         backgroundColor: '#02C8A7',
-        marginTop: hp(90),
+        marginTop: hp(250),
     },
 
     authFormContainer: {

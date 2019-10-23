@@ -4,14 +4,15 @@ import {widthPercentage as wp, heightPercentage as hp} from '../../util';
 module.exports = StyleSheet.create({
 
     contentWrapper: {
-        backgroundColor: '#02C8A7',
-        paddingBottom: hp(13),
+        paddingBottom: hp(35),
+        marginBottom: hp(80),
     },
 
     appHeader: {
         width: '100%',
-        height: hp(50),
+        height: hp(70),
         backgroundColor: '#35d3b9',
+        marginBottom: hp(40),
         zIndex: 2
     },
 
@@ -78,7 +79,7 @@ module.exports = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: hp(7),
         left: wp(25),
-        top: wp(-11),
+        top: wp(-16),
     },
 
     stepDot2: {
@@ -88,7 +89,7 @@ module.exports = StyleSheet.create({
         backgroundColor: '#ffffff',
         borderRadius: hp(7),
         left: wp(129),
-        top: wp(17),
+        top: wp(12),
     },
 
     stepDot3: {
@@ -98,7 +99,7 @@ module.exports = StyleSheet.create({
         backgroundColor: "#ffffff",
         borderRadius: hp(7),
         left: wp(234),
-        top: wp(17),
+        top: wp(12),
     },
 
     stepDot4: {
@@ -108,6 +109,6 @@ module.exports = StyleSheet.create({
         backgroundColor: "#ffffff",
         borderRadius: hp(7),
         left: wp(338),
-        top: wp(-11),
+        top: wp(-16),
     },
 });

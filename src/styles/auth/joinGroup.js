@@ -4,7 +4,6 @@ import {widthPercentage as wp, heightPercentage as hp} from '../../util';
 
 module.exports = StyleSheet.create({
     formWrapper: {
-        marginTop: hp(53),
         flex: 1,
         position: 'relative',
     },
