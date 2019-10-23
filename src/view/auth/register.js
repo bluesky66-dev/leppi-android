@@ -52,25 +52,26 @@ class Register extends Component {
     }
 
     async _onNextStep() {
+        const {navigate} = this.props.navigation;
         let state = this.state;
         switch (this.state.step_index) {
             case 1:
                 if (!state.country || state.country.length <= 0) {
-                    Toast.show('Select your country', Toast.SHORT);
+                    Toast.show('Enter your address', Toast.SHORT);
                     return false;
                 }
-                if (!state.country || state.city.length <= 0) {
-                    Toast.show('Enter your city', Toast.SHORT);
-                    return false;
-                }
-                if (!state.country || state.street.length <= 0) {
-                    Toast.show('Enter your street', Toast.SHORT);
-                    return false;
-                }
-                if (!state.country || state.district.length <= 0) {
-                    Toast.show('Enter your district', Toast.SHORT);
-                    return false;
-                }
+                // if (!state.country || state.city.length <= 0) {
+                //     Toast.show('Enter your city', Toast.SHORT);
+                //     return false;
+                // }
+                // if (!state.country || state.street.length <= 0) {
+                //     Toast.show('Enter your street', Toast.SHORT);
+                //     return false;
+                // }
+                // if (!state.country || state.district.length <= 0) {
+                //     Toast.show('Enter your district', Toast.SHORT);
+                //     return false;
+                // }
                 let callingCode =  utils.getCallingCode(state.cca2);
                 console.log('callingCode === ', callingCode);
                 this.setState({callingCode: callingCode});
@@ -190,6 +191,11 @@ class Register extends Component {
         } else if (step_index === 6) {
             navigate('Welcome');
         }
+    }
+
+    _gotoWelcome = () => {
+        const {navigate} = this.props.navigation;
+        navigate('Welcome');
     }
 
     _onBackPress = () => {

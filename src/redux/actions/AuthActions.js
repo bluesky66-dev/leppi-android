@@ -155,7 +155,7 @@ export const fetchSignup = data => {
                     } else if (json.msg.code === 'auth/invalid-email') {
                         Toast.show("Invalid email address!", Toast.SHORT);
                     } else {
-                        ToastAndroid.show(json.msg.message, ToastAndroid.SHORT);
+                        Toast.show(json.msg.message, Toast.SHORT);
                     }
                 } else {
                     Toast.show("The system is busy now!", Toast.SHORT);
@@ -330,7 +330,7 @@ export const isJoinedGroup = group => ({
     payload: group
 });
 
-export const createGroup = (group, userMeta) => {
+export const createGroup = (group, userMeta, callback = false) => {
     return async dispatch => {
         dispatch(isLoading(true));
         try {
@@ -361,6 +361,7 @@ export const createGroup = (group, userMeta) => {
                 .ref('userGroups')
                 .child(group.userId)
                 .push(userGroup).key;
+            console.log('group', group);
             dispatch(isJoinedGroup(group));
             let userPoints = userMeta.points ? userMeta.points : 0;
             userPoints += 50;
@@ -370,6 +371,9 @@ export const createGroup = (group, userMeta) => {
                 .child(userMeta.userId)
                 .update({points: userPoints});
             dispatch(fetchingUserMetaSuccess(userMeta));
+            if (!callback) {
+                callback();
+            }
         } catch (e) {
             dispatch(isLoading(false));
         }
