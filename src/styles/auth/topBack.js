@@ -1,20 +1,20 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp, heightPercentage as hp} from '../../util';
+import {widthPercentage as wp} from '../../util';
 
 module.exports = StyleSheet.create({
     backIcon: {
         position: "absolute",
-        top: hp(25),
+        top: wp(25),
         left: wp(28),
-        width: hp(22),
-        height: hp(20),
+        width: wp(22),
+        height: wp(20),
         backgroundColor: 'transparent',
         zIndex: 3,
     },
 
     backIconStyle: {
-        width: hp(22),
-        height: hp(20),
+        width: wp(22),
+        height: wp(20),
         resizeMode: 'stretch',
     },
 });

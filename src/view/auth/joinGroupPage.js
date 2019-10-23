@@ -6,7 +6,7 @@ import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from '../../components/swiper';
-import {heightPercentage as hp} from '../../util';
+import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import * as authActions from "../../redux/actions/AuthActions";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -125,17 +125,17 @@ class joinGroupPage extends Component {
 
     render() {
         let swiperStyle = {};
-        swiperStyle.height = hp(404);
+        swiperStyle.height = wp(404);
         let title = "Próximo";
         switch (this.state.step_index) {
             case 1:
-                swiperStyle.height = hp(512);
+                swiperStyle.height = wp(512);
                 break;
             case 2:
-                swiperStyle.height = hp(512);
+                swiperStyle.height = wp(512);
                 break;
             case 3:
-                swiperStyle.height = hp(404);
+                swiperStyle.height = wp(404);
                 title = "Criar Grupo";
                 break;
         }

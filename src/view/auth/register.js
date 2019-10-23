@@ -8,7 +8,7 @@ import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
 import Swiper from  '../../components/swiper';
 import * as utils from '../../util';
-import {heightPercentage as hp} from '../../util';
+import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import Spinner from "react-native-loading-spinner-overlay";
 import * as EmailValidator from "email-validator/index";
@@ -232,23 +232,23 @@ class Register extends Component {
 
     render() {
         let swiperStyle = {};
-        swiperStyle.height = hp(384);
+        swiperStyle.height = wp(384);
         let title = "Próximo";
         switch (this.state.step_index) {
             case 1:
-                swiperStyle.height = hp(384);
+                swiperStyle.height = wp(384);
                 break;
             case 2:
-                swiperStyle.height = hp(384);
+                swiperStyle.height = wp(384);
                 break;
             case 3:
-                swiperStyle.height = hp(384);
+                swiperStyle.height = wp(384);
                 break;
             case 4:
-                swiperStyle.height = hp(492);
+                swiperStyle.height = wp(492);
                 break;
             case 5:
-                swiperStyle.height = hp(384);
+                swiperStyle.height = wp(384);
                 title = "Criar Grupo";
                 break;
         }

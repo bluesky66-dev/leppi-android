@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp, heightPercentage as hp} from '../../util';
+import {widthPercentage as wp} from '../../util';
 
 
 module.exports = StyleSheet.create({
@@ -16,15 +16,15 @@ module.exports = StyleSheet.create({
 
     backgroundImage: {
         width: wp(375),
-        height: hp(812)
+        height: wp(812)
     },
 
     titleWrapper: {
-        marginTop: hp(47),
+        marginTop: wp(47),
     },
 
     titleTxt: {
-        fontSize: hp(23),
+        fontSize: wp(23),
         fontFamily: "Raleway-Bold",
         color: "#ffffff",
         textAlign: "center"
@@ -34,26 +34,26 @@ module.exports = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft: wp(51),
         paddingRight: wp(44),
-        marginTop: hp(63),
+        marginTop: wp(63),
         alignItems: 'flex-start',
     },
 
     howToWorkTxt: {
         fontFamily: "Raleway-Bold",
-        fontSize: hp(51),
+        fontSize: wp(51),
         color: "#ffffff",
         width: wp(157),
     },
 
     logoImage: {
-        width: hp(100),
-        height: hp(100),
+        width: wp(100),
+        height: wp(100),
         marginLeft: wp(22),
     },
 
     swiperWrapper: {
-        marginTop: hp(59),
-        height: hp(381),
+        marginTop: wp(59),
+        height: wp(381),
     },
 
     dotStyle: {
@@ -70,14 +70,14 @@ module.exports = StyleSheet.create({
 
     swiperItem: {
         flex: 1,
-        paddingTop: hp(54),
+        paddingTop: wp(54),
         paddingLeft: wp(57),
         paddingRight: wp(33),
     },
 
     swiperItemTxt: {
         fontFamily: "Raleway-Bold",
-        fontSize: hp(25),
+        fontSize: wp(25),
         color: "#ffffff",
     },
 
@@ -86,13 +86,13 @@ module.exports = StyleSheet.create({
     },
 
     btnWrapper: {
-        marginBottom: hp(49)
+        marginBottom: wp(49)
     },
 
     btnWelcome: {
         alignSelf: 'center',
-        width: hp(140),
-        height: hp(57),
+        width: wp(140),
+        height: wp(57),
     },
 
     btnContainer: {
@@ -100,8 +100,8 @@ module.exports = StyleSheet.create({
     },
 
     button: {
-        width: hp(140),
-        height: hp(57),
+        width: wp(140),
+        height: wp(57),
         alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
@@ -109,7 +109,7 @@ module.exports = StyleSheet.create({
 
     buttonText: {
         fontFamily: "Raleway-Bold",
-        fontSize: hp(20),
+        fontSize: wp(20),
         color: "#ffffff",
         alignSelf: 'center',
     },

@@ -131,7 +131,7 @@ android {
         applicationId "com.app.leppi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 560
+        versionCode 561
         versionName "3.0"
 
         multiDexEnabled true

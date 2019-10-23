@@ -9,10 +9,10 @@ module.exports = StyleSheet.create({
       },
     
     welcomeText: {
-        marginTop: hp(215),
+        marginTop: wp(215),
         fontWeight: "400",
         fontFamily: "Raleway-Bold",
-        fontSize: hp(64),
+        fontSize: wp(64),
         color: "#ffffff",
         textAlign: "center"
     },
@@ -22,6 +22,6 @@ module.exports = StyleSheet.create({
         bottom: 0,
         left: wp(-110),
         width: wp(512),
-        height: hp(512),
+        height: wp(512),
     },
 });

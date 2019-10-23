@@ -1,18 +1,20 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp, heightPercentage as hp} from '../../util';
+import {widthPercentage as wp} from '../../util';
+import { Dimensions } from 'react-native';
+let screenWidth = Dimensions.get('window').width;
 
 module.exports = StyleSheet.create({
 
     contentWrapper: {
-        paddingBottom: hp(35),
-        marginBottom: hp(80),
+        flex: 1,
+        backgroundColor: '#02C8A7',
+        paddingBottom: wp(13),
     },
 
     appHeader: {
         width: '100%',
-        height: hp(70),
+        height: wp(50),
         backgroundColor: '#35d3b9',
-        marginBottom: hp(40),
         zIndex: 2
     },
 
@@ -32,10 +34,10 @@ module.exports = StyleSheet.create({
     headerText: {
         position: 'absolute',
         alignSelf: "center",
-        top: hp(22),
+        top: wp(22),
         fontWeight: "400",
         fontFamily: "Raleway-Bold",
-        fontSize: hp(46),
+        fontSize: wp(46),
         color: "#ffffff",
         textAlign: "center",
         opacity: 0.2,
@@ -43,16 +45,16 @@ module.exports = StyleSheet.create({
 
     logoBox: {
         position: 'absolute',
-        top: hp(59),
+        top: wp(59),
         alignSelf: "center",
-        width: hp(177),
-        height: hp(148),
+        width: wp(177),
+        height: wp(148),
     },
 
     headerLogo: {
         alignSelf: "flex-start",
-        width: hp(148),
-        height: hp(148),
+        width: wp(148),
+        height: wp(148),
     },
 
     stepTitleWrapper: {
@@ -65,7 +67,7 @@ module.exports = StyleSheet.create({
         fontWeight: "400",
         fontFamily: "Raleway-Bold",
         color: "#ffffff",
-        fontSize: hp(17),
+        fontSize: wp(17),
     },
 
     stepDot0: {
@@ -73,42 +75,42 @@ module.exports = StyleSheet.create({
     },
 
     stepDot1: {
-        width: hp(14),
-        height: hp(14),
+        width: wp(14),
+        height: wp(14),
         zIndex: 2,
         backgroundColor: '#ffffff',
-        borderRadius: hp(7),
+        borderRadius: wp(7),
         left: wp(25),
-        top: wp(-16),
+        top: wp(-11),
     },
 
     stepDot2: {
-        width: hp(14),
-        height: hp(14),
+        width: wp(14),
+        height: wp(14),
         zIndex: 2,
         backgroundColor: '#ffffff',
-        borderRadius: hp(7),
+        borderRadius: wp(7),
         left: wp(129),
-        top: wp(12),
+        top: wp(17),
     },
 
     stepDot3: {
-        width: hp(14),
-        height: hp(14),
+        width: wp(14),
+        height: wp(14),
         zIndex: 2,
         backgroundColor: "#ffffff",
-        borderRadius: hp(7),
+        borderRadius: wp(7),
         left: wp(234),
-        top: wp(12),
+        top: wp(17),
     },
 
     stepDot4: {
-        width: hp(14),
-        height: hp(14),
+        width: wp(14),
+        height: wp(14),
         zIndex: 2,
         backgroundColor: "#ffffff",
-        borderRadius: hp(7),
+        borderRadius: wp(7),
         left: wp(338),
-        top: wp(-16),
+        top: wp(-11),
     },
 });

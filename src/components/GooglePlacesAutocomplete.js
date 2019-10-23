@@ -22,20 +22,20 @@ const defaultStyles = {
 
     textInputContainer: {
         backgroundColor: "#ffffff",
-        height: hp(33),
+        height: wp(33),
         flexDirection: 'row',
-        borderTopLeftRadius: hp(8),
-        borderBottomLeftRadius: hp(8),
-        borderTopRightRadius: hp(8),
-        borderBottomRightRadius: hp(8),
+        borderTopLeftRadius: wp(8),
+        borderBottomLeftRadius: wp(8),
+        borderTopRightRadius: wp(8),
+        borderBottomRightRadius: wp(8),
     },
 
     textInput: {
         flex: 1,
-        padding: hp(7),
+        padding: wp(7),
         paddingLeft: wp(14),
-        fontSize: hp(14),
-        height: hp(33),
+        fontSize: wp(14),
+        height: wp(33),
         fontFamily: "Raleway-Medium",
         color: "#3D3D3D",
     },
@@ -48,13 +48,13 @@ const defaultStyles = {
 
     rowWrapper: {
         width: wp(373),
-        height: hp(44),
+        height: wp(44),
         zIndex: 8,
     },
 
     row: {
-        padding: hp(13),
-        height: hp(44),
+        padding: wp(13),
+        height: wp(44),
         flexDirection: 'row',
     },
 
@@ -68,7 +68,7 @@ const defaultStyles = {
     loader: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        height: hp(20),
+        height: wp(20),
     },
 
     androidLoader: {

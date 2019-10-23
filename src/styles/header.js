@@ -1,52 +1,52 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp, heightPercentage as hp} from '../util';
+import {widthPercentage as wp} from '../util';
 
 module.exports = StyleSheet.create({
 
     header: {
         backgroundColor: '#35d3b9',
-        height: hp(135),
+        height: wp(135),
         shadowOpacity: 0.16,
-        shadowRadius: hp(6),
+        shadowRadius: wp(6),
         shadowColor: '#000000',
-        shadowOffset: {height: hp(3), width: 0},
+        shadowOffset: {height: wp(3), width: 0},
         elevation: 6,
     },
 
     listIcon: {
-        width: hp(19),
-        height: hp(15),
+        width: wp(19),
+        height: wp(15),
         position: 'absolute',
-        top: hp(50),
+        top: wp(50),
         left: wp(33)
     },
 
     listIconStyle: {
         width: wp(19),
-        height: hp(15),
+        height: wp(15),
     },
 
     logoWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: hp(40),
+        marginTop: wp(40),
     },
 
     logoIcon: {
-        width: hp(31),
-        height: hp(31)
+        width: wp(31),
+        height: wp(31)
     },
 
     logoTxt: {
         color: "#ffffff",
-        fontSize: hp(23),
+        fontSize: wp(23),
         fontFamily: "Raleway-Bold",
         marginLeft: wp(8)
     },
 
     menuWrapper: {
-        marginTop: hp(35),
+        marginTop: wp(35),
         flexDirection: 'row',
         paddingLeft: wp(45),
         paddingRight: wp(45),
@@ -55,13 +55,13 @@ module.exports = StyleSheet.create({
     menuItem: {
         position: 'relative',
         zIndex: 3,
-        height: hp(26),
+        height: wp(26),
         backgroundColor: '#35d3b9',
     },
 
     menuItemTxt: {
         color: "#3d3d3d",
-        fontSize: hp(15),
+        fontSize: wp(15),
         fontFamily: "Raleway-Bold",
     },
 
@@ -79,11 +79,11 @@ module.exports = StyleSheet.create({
 
     menuActive: {
         position: 'relative',
-        top: hp(-2),
+        top: wp(-2),
         alignSelf: 'center',
         width: wp(20),
-        height: hp(5),
-        borderRadius: hp(3),
+        height: wp(5),
+        borderRadius: wp(3),
         backgroundColor: '#f9be02',
         zIndex: 1,
     }

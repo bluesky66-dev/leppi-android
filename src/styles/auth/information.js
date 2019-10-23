@@ -1,55 +1,55 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentage as wp, heightPercentage as hp} from '../../util';
+import {widthPercentage as wp} from '../../util';
 
 
 module.exports = StyleSheet.create({
     formWrapper: {
-        marginTop: hp(31),
+        marginTop: wp(31),
         flex: 1,
     },
 
     avatarWrapper: {
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: hp(30),
+        marginBottom: wp(30),
     },
 
     avatarContainer: {
-        width: hp(114),
-        height: hp(114),
-        borderRadius: hp(54),
-        borderWidth: 3,
+        width: wp(114),
+        height: wp(114),
+        borderRadius: wp(54),
+        borderWidth: wp(3),
         borderColor: "#ffffff",
         overflow: "hidden",
     },
 
     defaultAvatar: {
         position: "absolute",
-        width: hp(86),
-        height: hp(95),
-        bottom: hp(-4),
-        left: hp(6),
+        width: wp(86),
+        height: wp(95),
+        bottom: -4,
+        left: wp(6),
     },
 
     realAvatar: {
-        width: hp(108),
-        height: hp(108),
+        width: wp(108),
+        height: wp(108),
         resizeMode: 'cover',
     },
 
     plusIcon: {
         position: "absolute",
-        top: hp(83),
-        right: wp(156),
-        width: hp(38),
-        height: hp(38),
+        top: wp(83),
+        right: wp(136),
+        width: wp(38),
+        height: wp(38),
         backgroundColor: 'transparent',
         zIndex: 3,
     },
 
     plusIconStyle: {
-        width: hp(38),
-        height: hp(38),
+        width: wp(38),
+        height: wp(38),
         resizeMode: "stretch",
     },
 

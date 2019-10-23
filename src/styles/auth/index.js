@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {widthPercentage as wp, heightPercentage as hp } from '../../util';
+import {widthPercentage as wp } from '../../util';
 
 module.exports = StyleSheet.create({
 
@@ -29,7 +29,7 @@ module.exports = StyleSheet.create({
   welcomeText: {
     fontWeight: "400",
     fontFamily: "Raleway-Bold",
-    fontSize: hp(32),
+    fontSize: wp(32),
     color: "#ffffff",
     textAlign: "center",
     marginLeft: wp(6),
@@ -42,36 +42,36 @@ module.exports = StyleSheet.create({
 
   logoimage: {
     alignSelf: "flex-start",
-    width: hp(56),
-    height: hp(56),
+    width: wp(56),
+    height: wp(56),
   },
 
   btnContainer: {
-    borderRadius: 14,
-    marginTop: hp(10),
+    borderRadius: wp(14),
+    marginTop: wp(10),
   },
 
   button: {
-    height: hp(36),
+    height: wp(36),
     width: wp(162),
     alignSelf: "center",
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
     alignItems: "center",
-    borderTopLeftRadius: 12,
-    borderBottomLeftRadius: 39,
-    borderTopRightRadius: 39,
-    borderBottomRightRadius: 12
+    borderTopLeftRadius: wp(12),
+    borderBottomLeftRadius: wp(39),
+    borderTopRightRadius: wp(39),
+    borderBottomRightRadius: wp(12)
   },
 
   buttonText: {
     fontFamily: "Raleway-Bold",
-    fontSize: hp(18),
+    fontSize: wp(18),
     color: "#02C8A7",
   },
 
   bordered: {
-    borderWidth: 3,
+    borderWidth: wp(3),
     color: "#fff",
     borderColor: "#FFFFFF",
     backgroundColor: "#02C8A7",
@@ -89,13 +89,13 @@ module.exports = StyleSheet.create({
 
   loginButtonText: {
     fontFamily: "Raleway-Bold",
-    fontSize: hp(18),
+    fontSize: wp(18),
     color: "#3D3D3D",
   },
 
   registerButtonText: {
     fontFamily: "Raleway-Bold",
-    fontSize: hp(18),
+    fontSize: wp(18),
     color: "#02C8A7",
   },
 });
