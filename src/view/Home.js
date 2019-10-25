@@ -128,22 +128,22 @@ class Home extends Component {
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
-                    <SellShareModal
-                        navigation={this.props.navigation}
-                        isVisible={this.state.isSellShare}
-                        feedCategory={this.state.feedCategory}
-                        onBackdropPress={()=>this.setState({isSellShare: false})}/>
-                    <SolicitationModal
-                        navigation={this.props.navigation}
-                        feedCategory={this.state.feedCategory}
-                        isVisible={this.state.isSolicitation}
-                        onBackdropPress={()=>this.setState({isSolicitation: false})}/>
-                    <JoinGroupModal
-                        isVisible={this.state.isJoinGroup}
-                        groupInfo={joinedGroup}
-                        isVisibleJoinButton={false}
-                        onBackdropPress={()=>this.setState({isJoinGroup: false})}/>
                 </View>
+                <SellShareModal
+                    navigation={this.props.navigation}
+                    isVisible={this.state.isSellShare}
+                    feedCategory={this.state.feedCategory}
+                    onBackdropPress={()=>this.setState({isSellShare: false})}/>
+                <SolicitationModal
+                    navigation={this.props.navigation}
+                    feedCategory={this.state.feedCategory}
+                    isVisible={this.state.isSolicitation}
+                    onBackdropPress={()=>this.setState({isSolicitation: false})}/>
+                <JoinGroupModal
+                    isVisible={this.state.isJoinGroup}
+                    groupInfo={joinedGroup}
+                    isVisibleJoinButton={false}
+                    onBackdropPress={()=>this.setState({isJoinGroup: false})}/>
             </View>
         );
     }

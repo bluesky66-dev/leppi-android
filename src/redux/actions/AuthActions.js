@@ -148,15 +148,7 @@ export const fetchSignup = data => {
                 dispatch(fetchingSignupSuccess(json.uid));
             } else {
                 if (json.msg && json.msg.code) {
-                    if (json.msg.code === 'auth/invalid-phone-number') {
-                        Toast.show("Invalid phone number!", Toast.SHORT);
-                    } else  if (json.msg.code === 'auth/invalid-email') {
-                        Toast.show("Invalid email address!", Toast.SHORT);
-                    } else if (json.msg.code === 'auth/invalid-email') {
-                        Toast.show("Invalid email address!", Toast.SHORT);
-                    } else {
-                        Toast.show(json.msg.message, Toast.SHORT);
-                    }
+                    Toast.show(json.msg.message, Toast.SHORT);
                 } else {
                     Toast.show("The system is busy now!", Toast.SHORT);
                 }
@@ -262,7 +254,15 @@ export const fetchingUserMeta = (navigate) => {
                 .once('value');
 
             if (!userMetaSnapshot.exists()) {
-                navigate('Start');
+                dispatch(R_logout());
+                let keys = ['$leppiUserId', '$leppiGroupId', '$leppiSkipWelcome', '$leppiFCMToken'];
+                try {
+                    await AsyncStorage.multiRemove(keys);
+                    // console.log('===== R_logout');
+                    await firebase.auth().signOut();
+                } catch (e) {
+                    dispatch(isLoading(false));
+                }
             } else {
                 let userMeta = userMetaSnapshot.val();
                 firebase.database()
@@ -293,7 +293,15 @@ export const fetchingUserMeta = (navigate) => {
             // console.log('ERROR------- >>>');
             // console.log(error);
             dispatch(isLoading(false));
-            navigate('Start');
+            dispatch(R_logout());
+            let keys = ['$leppiUserId', '$leppiGroupId', '$leppiSkipWelcome', '$leppiFCMToken'];
+            try {
+                await AsyncStorage.multiRemove(keys);
+                // console.log('===== R_logout');
+                await firebase.auth().signOut();
+            } catch (e) {
+                dispatch(isLoading(false));
+            }
         }
     };
 };
