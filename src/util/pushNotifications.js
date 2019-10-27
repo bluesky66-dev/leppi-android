@@ -4,16 +4,16 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export const getToken = async () => {
     let fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
-    console.log('====== fcmToken', fcmToken);
+    //console.log('====== fcmToken', fcmToken);
     if (!fcmToken) {
         fcmToken = await firebase.messaging().getToken();
-        console.log('====== fcmToken', fcmToken);
+        //console.log('====== fcmToken', fcmToken);
         if (fcmToken) {
             await AsyncStorage.setItem('$leppiFCMToken', fcmToken);
         }
     }
    firebase.messaging().onTokenRefresh(async (fcmToken) => {
-        console.log('New FCM Token:', fcmToken);
+        //console.log('New FCM Token:', fcmToken);
 
         await AsyncStorage.setItem('$leppiFCMToken', fcmToken);
     });
@@ -41,9 +41,9 @@ export const checkPermission = async () => {
 };
 
 export const notificationListener = async () => {
-    console.log('firebase.messaging().onMessag');
+    //console.log('firebase.messaging().onMessag');
     const unsubscribe = firebase.messaging().onMessage(async (remoteMessage) => {
-        console.log('FCM Message Data:', remoteMessage.data);
+        //console.log('FCM Message Data:', remoteMessage.data);
         // Update a users messages list using AsyncStorage
         const currentMessages = await AsyncStorage.getItem('messages');
         const messageArray = JSON.parse(currentMessages);
