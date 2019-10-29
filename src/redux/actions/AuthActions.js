@@ -961,7 +961,7 @@ export const fetchingChatUsers = (roomInfo, page, callback) => {
 
 };
 
-export const udatePoints = (points) => {
+export const updatePoints = (points) => {
     return async dispatch => {
         const userId = await AsyncStorage.getItem('$leppiUserId');
         try {

@@ -244,7 +244,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchLogout: () => dispatch(authActions.fetchLogout()),
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading)),
         joinGroup: (group, userId) => dispatch(authActions.joinGroup(group, userId)),
-        // udatePoints: (points) => dispatch(authActions.udatePoints(points))
+        //updatePoints: (points) => dispatch(authActions.updatePoints(points))
     }
 };
 

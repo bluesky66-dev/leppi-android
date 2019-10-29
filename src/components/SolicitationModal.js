@@ -21,7 +21,9 @@ class SolicitationModal extends Component {
             product_desc: '',
             est_time: '',
             est_date: '',
+			mode: 'date',
             date: new Date(),
+			isDateTimePickerVisible: false
         };
         this._onSolicitation = this._onSolicitation.bind(this);
     }

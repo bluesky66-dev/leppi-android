@@ -23,7 +23,7 @@ class ChatUsers extends Component {
          const roomInfo = this.props.navigation.getParam('roomInfo', false);
          if (roomInfo) {
              this.props.setLoadingSpinner(true);
-             authActions.fetchingChatUsers(this.props.roomInfo, this.state.page, userList => {
+             authActions.fetchingChatUsers(roomInfo, this.state.page, userList => {
                  this.props.setLoadingSpinner(false);
                  if (userList !== null) {
                      this.setState({ userList: userList });
