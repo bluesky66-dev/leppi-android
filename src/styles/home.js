@@ -35,23 +35,6 @@ module.exports = StyleSheet.create({
         textAlign: 'center'
     },
 
-    btnInfoGroup: {
-        marginTop: wp(23),
-        width: wp(300),
-        alignSelf: 'center',
-        backgroundColor: '#35d3b9',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: wp(38),
-        borderRadius: wp(35)
-    },
-
-    btnInfoGroupTxt: {
-        color: "#ffffff",
-        fontSize: wp(14),
-        fontFamily: "Raleway-SemiBold",
-    },
-
     titleWrapper: {
         marginTop: wp(38),
         paddingLeft: wp(54),
@@ -103,10 +86,7 @@ module.exports = StyleSheet.create({
     },
 
     buttonGroup: {
-        marginTop: wp(60),
-        paddingRight :wp(32),
-        paddingLeft: wp(33),
-        marginBottom: wp(62)
+        height: wp(62)
     },
 
     sellButton: {

@@ -2,8 +2,12 @@ import {StyleSheet} from 'react-native';
 import {widthPercentage as wp} from '../util';
 
 module.exports = StyleSheet.create({
-
-    container: {},
+    rootWrapper: {
+        flex: 1,
+    },
+    container: {
+        flex: 1,
+    },
 
     contentWrapper: {
         backgroundColor: '#ffffff',
@@ -222,5 +226,22 @@ module.exports = StyleSheet.create({
         fontSize: wp(11),
         fontFamily: "Raleway-Regular",
         opacity: 0.4
-    }
+    },
+
+    btnInfoGroup: {
+        marginTop: wp(23),
+        width: wp(300),
+        alignSelf: 'center',
+        backgroundColor: '#35d3b9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: wp(38),
+        borderRadius: wp(35),
+    },
+
+    btnInfoGroupTxt: {
+        color: "#ffffff",
+        fontSize: wp(14),
+        fontFamily: "Raleway-SemiBold",
+    },
 });

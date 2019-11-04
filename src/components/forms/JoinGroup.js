@@ -98,7 +98,7 @@ class JoinGroup extends Component {
                 groupCount++;
                 ItemGroups.push(<JoinGroupItem key={i}
                     onPress={() => this._onJoinGroup(group)}
-                    labelText={"Info & Join"}
+                    labelText={"Entrar"}
                     value={group.group_name} />);
                 if (groupCount % 5 === 0) {
                     swiperItems.push(<View style={joinGroupStyles.formContainer} key={i}>

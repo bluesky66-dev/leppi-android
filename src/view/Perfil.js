@@ -20,12 +20,14 @@ import PointExcellent2a from "../images/excellent2a.png";
 import styles from '../styles/perfil';
 import * as authActions from "../redux/actions/AuthActions";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
+import JoinGroupModal from "../components/JoinGroupModal";
 
 class Perfil extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user_about: '',
+            isJoinGroup: false,
             userGroups: [],
         };
     }
@@ -103,6 +105,9 @@ class Perfil extends Component {
         await this.props.fetchLogout();
     }
 
+    _onInfoGroup = () => {
+        this.setState({isJoinGroup: true})
+    }
 
     render() {
 
@@ -206,11 +211,6 @@ class Perfil extends Component {
                                         {userGroups}
                                     </View>
                                 </View>
-                                {/*<View style={styles.inviteWrapper}>*/}
-                                {/*    <TouchableOpacity style={styles.inviteBtn} onPress={() => this._onInvite(this.props.groupId)}>*/}
-                                {/*        <Text style={styles.inviteBtnTxt}>Convidar vizinho</Text>*/}
-                                {/*    </TouchableOpacity>*/}
-                                {/*</View>*/}
                             </View>
                             <View style={styles.btnBottomWrapper}>
                                 <TouchableOpacity style={styles.btnBottom} onPress={() => this._onChangeGroup()}>
@@ -220,9 +220,17 @@ class Perfil extends Component {
                                     <Text style={styles.btnBottomTxt}>Logout</Text>
                                 </TouchableOpacity>
                             </View>
+                            <TouchableOpacity onPress={()=>this._onInfoGroup()} style={styles.btnInfoGroup} activeOpacity={0.8}>
+                                <Text style={styles.btnInfoGroupTxt}>Informações do Grupo</Text>
+                            </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </View>
+                <JoinGroupModal
+                    isVisible={this.state.isJoinGroup}
+                    groupInfo={joinedGroup}
+                    isVisibleJoinButton={false}
+                    onBackdropPress={()=>this.setState({isJoinGroup: false})}/>
             </View>
         );
     }

@@ -1,6 +1,4 @@
 import {StyleSheet} from 'react-native';
-import { Dimensions, PixelRatio } from 'react-native';
-let screenHeight = Dimensions.get('window').height;
 import {widthPercentage as wp} from '../util';
 
 module.exports = StyleSheet.create({
