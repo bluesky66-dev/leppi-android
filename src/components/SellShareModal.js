@@ -25,6 +25,7 @@ class SellShareModal extends Component {
             product_price: '',
             gallery: [],
             gallery_uris: [],
+            isLoading: false,
         };
         this._onSellShare = this._onSellShare.bind(this);
         this._onAddImage = this._onAddImage.bind(this);
@@ -39,6 +40,7 @@ class SellShareModal extends Component {
             product_price: '',
             gallery: [],
             gallery_uris: [],
+            isLoading: false,
         });
     }
 
@@ -107,7 +109,7 @@ class SellShareModal extends Component {
             },
         };
         try {
-            modalThis.props.setLoadingSpinner(true);
+            modalThis.setState({isLoading: true});
             ImagePicker.showImagePicker(options, (response) => {
                 //console.log('======= Response = ', response);
                 if (response.didCancel) {
@@ -126,7 +128,7 @@ class SellShareModal extends Component {
                             try {
                                 const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds/' + this.props.userId);
                                 console.log(uploadPath);
-                                modalThis.props.setLoadingSpinner(false);
+                                modalThis.setState({isLoading: false});
                                 if (uploadPath) {
                                     gallery.push(uploadPath);
                                     gallery_uris.push(newImage.uri);
@@ -134,21 +136,21 @@ class SellShareModal extends Component {
                                 }
                             } catch (e) {
                                 console.log(e.message);
-                                modalThis.props.setLoadingSpinner(false);
+                                modalThis.setState({isLoading: false});
                             }
                         }).catch((err) => {
                             console.log(err.message);
-                            modalThis.props.setLoadingSpinner(false);
+                            modalThis.setState({isLoading: false});
                         });
                     } else {
-                        modalThis.props.setLoadingSpinner(false);
+                        modalThis.setState({isLoading: false});
                     }
                 }
-                modalThis.props.setLoadingSpinner(false);
+                modalThis.setState({isLoading: false});
             });
         } catch (e) {
             console.log(e.message);
-            modalThis.props.setLoadingSpinner(false);
+            modalThis.setState({isLoading: false});
         }
     }
 
@@ -213,14 +215,14 @@ class SellShareModal extends Component {
                     <Text style={styles.imageLabel}>Product Images</Text>
                     <View style={styles.imageGallery}>
                         {gallery}
-                        <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.props.isLoading} style={styles.imageItem}>
+                        <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.state.isLoading} style={styles.imageItem}>
                             <View style={styles.btnAddImage}>
-                                {this.props.isLoading && <Image source={IconLoader} style={styles.iconPlus}/>}
-                                {!this.props.isLoading && <Image source={IconPlus} style={styles.iconPlus}/>}
+                                {this.state.isLoading && <Image source={IconLoader} style={styles.iconPlus}/>}
+                                {!this.state.isLoading && <Image source={IconPlus} style={styles.iconPlus}/>}
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.props.isLoading} style={styles.btnSellShare}>
+                    <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.state.isLoading} style={styles.btnSellShare}>
                         <Text style={styles.sellShareTxt}>Anunciar</Text>
                     </TouchableOpacity>
                 </View>
@@ -233,7 +235,6 @@ function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
         userMeta: state.AuthReducer.userMeta,
-        isLoading: state.AuthReducer.isLoading,
     }
 }
 
