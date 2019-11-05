@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Image, TouchableOpacity, View} from 'react-native';
+import * as authActions from "../../redux/actions/AuthActions";
 import {DateInput, RegisterTextInput} from '../start';
 import infoStyles from '../../styles/auth/information'
 import defaultAvatar from "../../images/office-worker.png";
@@ -22,6 +24,7 @@ class InformationForm extends Component {
                 uri: '',
                 path: 'users'
             },
+            isLoading: false,
         };
 
         this._onChangeValue = this._onChangeValue.bind(this);
@@ -44,7 +47,7 @@ class InformationForm extends Component {
             },
         };
         try {
-            modalThis.props.setLoadingSpinner(true);
+            modalThis.setState({isLoading: true});
             ImagePicker.showImagePicker(options, (response) => {
                 //console.log('======= Response = ', response);
                 if (response.didCancel) {
@@ -63,7 +66,7 @@ class InformationForm extends Component {
                                 //console.log('image.uri', image.uri);
                                 const uploadPath = await authActions.uploadFile(newImage.uri, 'users');
                                 console.log(uploadPath);
-                                modalThis.props.setLoadingSpinner(false);
+                                modalThis.setState({isLoading: false});
                                 if (uploadPath) {
                                     modalThis.props.onChange({avatar: uploadPath});
                                 }
@@ -71,21 +74,21 @@ class InformationForm extends Component {
                                 modalThis.setState({avatar: image});
                             } catch (e) {
                                 console.log(e.message);
-                                modalThis.props.setLoadingSpinner(false);
+                                modalThis.setState({isLoading: false});
                             }
                         }).catch((err) => {
                             console.log(err.message);
-                            modalThis.props.setLoadingSpinner(false);
+                            modalThis.setState({isLoading: false});
                         });
                     } else {
-                        modalThis.props.setLoadingSpinner(false);
+                        modalThis.setState({isLoading: false});
                     }
                 }
-                modalThis.props.setLoadingSpinner(false);
+                modalThis.setState({isLoading: false});
             });
         } catch (e) {
             console.log(e.message);
-            modalThis.props.setLoadingSpinner(false);
+            modalThis.setState({isLoading: false});
         }
     };
 
@@ -108,9 +111,9 @@ class InformationForm extends Component {
                     <View style={infoStyles.avatarContainer}>
                         <Image style={this.state.avatar.uri ? infoStyles.realAvatar: infoStyles.defaultAvatar} source={avatarSource}/>
                     </View>
-                    <TouchableOpacity style={infoStyles.plusIcon} activeOpacity={0.8} onPress={() => this.handleChoosePhoto()} disabled={this.props.isLoading}>
-                        {!this.props.isLoading && <Image source={plusIcon} style={infoStyles.plusIconStyle}/>}
-                        {this.props.isLoading && <Image source={IconLoader} style={infoStyles.plusIconStyle}/>}
+                    <TouchableOpacity style={infoStyles.plusIcon} activeOpacity={0.8} onPress={() => this.handleChoosePhoto()} disabled={this.state.isLoading}>
+                        {!this.state.isLoading && <Image source={plusIcon} style={infoStyles.plusIconStyle}/>}
+                        {this.state.isLoading && <Image source={IconLoader} style={infoStyles.plusIconStyle}/>}
                     </TouchableOpacity>
                 </View>
                 <View style={infoStyles.formContainer}>
@@ -155,13 +158,11 @@ class InformationForm extends Component {
 
 function mapStateToProps(state, props) {
     return {
-        isLoading: state.AuthReducer.isLoading,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
     }
 };
 

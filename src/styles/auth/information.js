@@ -46,6 +46,7 @@ module.exports = StyleSheet.create({
         backgroundColor: '#ffffff',
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: wp(19),
         zIndex: 3,
     },
 
