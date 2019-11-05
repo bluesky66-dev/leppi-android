@@ -43,13 +43,15 @@ module.exports = StyleSheet.create({
         right: wp(136),
         width: wp(38),
         height: wp(38),
-        backgroundColor: 'transparent',
+        backgroundColor: '#ffffff',
+        justifyContent: 'center',
+        alignItems: 'center',
         zIndex: 3,
     },
 
     plusIconStyle: {
-        width: wp(38),
-        height: wp(38),
+        width: wp(21),
+        height: wp(21),
         resizeMode: "stretch",
     },
 

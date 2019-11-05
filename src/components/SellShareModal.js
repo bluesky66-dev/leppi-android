@@ -7,6 +7,7 @@ import Modal from "react-native-modal";
 import TextArea from "../components/start/TextArea";
 import IconCloseModal from "../images/close-modal.png";
 import IconPlus from "../images/add-image.png";
+import IconLoader from "../images/white-loader.gif";
 import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from "../redux/constants/feedConstants";
 import ImagePicker from 'react-native-image-picker';
@@ -23,10 +24,22 @@ class SellShareModal extends Component {
             product_qty: '',
             product_price: '',
             gallery: [],
+            gallery_uris: [],
         };
         this._onSellShare = this._onSellShare.bind(this);
         this._onAddImage = this._onAddImage.bind(this);
         this._onRemoveImage = this._onRemoveImage.bind(this);
+    }
+
+    clearForm = () => {
+        this.setState({
+            product_title: '',
+            product_desc: '',
+            product_qty: '',
+            product_price: '',
+            gallery: [],
+            gallery_uris: [],
+        });
     }
 
     async _onSellShare() {
@@ -44,9 +57,11 @@ class SellShareModal extends Component {
         state.feed_category = this.props.feedCategory;
         state.feed_type = FeedTypes.sell;
         state.userId = this.props.userId;
-        await this.props.createFeed(state, this.props.userMeta);
-        this.refs.modal.close();
         this.props.onBackdropPress();
+        this.props.setLoadingSpinner(true);
+        await this.props.createFeed(state, this.props.userMeta);
+        this.props.setLoadingSpinner(false);
+        this.clearForm();
         this.props.clickMenu(MENU_TYPES.FEED);
         navigate('Feed');
     }
@@ -54,16 +69,21 @@ class SellShareModal extends Component {
     _onRemoveImage(index) {
         let modalThis = this;
         let gallery = modalThis.state.gallery;
+        let gallery_uris = modalThis.state.gallery_uris;
         Alert.alert(
             'Remove Image',
             'Are you sure you want to remove the image?',
             [
                 {text: 'Cancel', onPress: () => {
-
                     }, style: 'cancel'},
-                {text: 'OK', onPress: () => {
+                {text: 'OK', onPress: async () => {
+                        modalThis.props.setLoadingSpinner(true);
+                        await authActions.deleteFile(gallery[index]);
+                        modalThis.props.setLoadingSpinner(false);
+
                         gallery.splice(index, 1);
-                        modalThis.setState({gallery: gallery});
+                        gallery_uris.splice(index, 1);
+                        modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
                     }},
             ],
             { cancelable: false }
@@ -73,6 +93,7 @@ class SellShareModal extends Component {
     _onAddImage() {
         let modalThis = this;
         let gallery = modalThis.state.gallery;
+        let gallery_uris = modalThis.state.gallery_uris;
         if (gallery.length >= 5) {
             Toast.show('Can only upload up to 5 photos', Toast.SHORT);
             return false;
@@ -85,30 +106,54 @@ class SellShareModal extends Component {
                 skipBackup: true,
             },
         };
-        ImagePicker.showImagePicker(options, (response) => {
-            //console.log('======= Response = ', response);
-            if (response.didCancel) {
-                // //console.log('======= User cancelled image picker');
-            } else if (response.error) {
-                // //console.log('======= ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                // //console.log('======= User tapped custom button: ', response.customButton);
-            } else {
-                ImageResizer.createResizedImage(response.uri, 500, 600, 'JPEG', 70).then((newImage) => {
-                    //console.log('newImage ===', newImage);
-                    if (gallery.length >= 5) {
-                        return false;
+        try {
+            modalThis.props.setLoadingSpinner(true);
+            ImagePicker.showImagePicker(options, (response) => {
+                //console.log('======= Response = ', response);
+                if (response.didCancel) {
+                    // //console.log('======= User cancelled image picker');
+                } else if (response.error) {
+                    // //console.log('======= ImagePicker Error: ', response.error);
+                } else if (response.customButton) {
+                    // //console.log('======= User tapped custom button: ', response.customButton);
+                } else {
+                    if (typeof response.uri !== 'undefined') {
+                        ImageResizer.createResizedImage(response.uri, 400, 500, 'JPEG', 70).then(async (newImage) => {
+                            //console.log('newImage ===', newImage);
+                            if (gallery.length >= 5) {
+                                return false;
+                            }
+                            try {
+                                const uploadPath = await authActions.uploadFile(newImage.uri, 'feeds/' + this.props.userId);
+                                console.log(uploadPath);
+                                modalThis.props.setLoadingSpinner(false);
+                                if (uploadPath) {
+                                    gallery.push(uploadPath);
+                                    gallery_uris.push(newImage.uri);
+                                    modalThis.setState({gallery: gallery, gallery_uris: gallery_uris});
+                                }
+                            } catch (e) {
+                                console.log(e.message);
+                                modalThis.props.setLoadingSpinner(false);
+                            }
+                        }).catch((err) => {
+                            console.log(err.message);
+                            modalThis.props.setLoadingSpinner(false);
+                        });
+                    } else {
+                        modalThis.props.setLoadingSpinner(false);
                     }
-                    gallery.push(newImage.uri);
-                    modalThis.setState({gallery: gallery});
-                }).catch((err) => {
-                });
-            }
-        });
+                }
+                modalThis.props.setLoadingSpinner(false);
+            });
+        } catch (e) {
+            console.log(e.message);
+            modalThis.props.setLoadingSpinner(false);
+        }
     }
 
     render() {
-        let gallery = this.state.gallery.map((image, i) => {
+        let gallery = this.state.gallery_uris.map((image, i) => {
             return (
                 <TouchableOpacity onPress={() => this._onRemoveImage(i)} style={styles.imageItem} key={i}>
                     <Image source={{uri: image}} style={styles.imageView}/>
@@ -168,13 +213,14 @@ class SellShareModal extends Component {
                     <Text style={styles.imageLabel}>Product Images</Text>
                     <View style={styles.imageGallery}>
                         {gallery}
-                        <TouchableOpacity onPress={() => this._onAddImage()} style={styles.imageItem}>
+                        <TouchableOpacity onPress={() => this._onAddImage()} disabled={this.props.isLoading} style={styles.imageItem}>
                             <View style={styles.btnAddImage}>
-                                <Image source={IconPlus} style={styles.iconPlus}/>
+                                {this.props.isLoading && <Image source={IconLoader} style={styles.iconPlus}/>}
+                                {!this.props.isLoading && <Image source={IconPlus} style={styles.iconPlus}/>}
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this._onSellShare()} style={styles.btnSellShare}>
+                    <TouchableOpacity onPress={() => this._onSellShare()} disabled={this.props.isLoading} style={styles.btnSellShare}>
                         <Text style={styles.sellShareTxt}>Anunciar</Text>
                     </TouchableOpacity>
                 </View>
@@ -187,6 +233,7 @@ function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
         userMeta: state.AuthReducer.userMeta,
+        isLoading: state.AuthReducer.isLoading,
     }
 }
 
@@ -194,6 +241,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createFeed: (feed, userMeta) => dispatch(authActions.createFeed(feed, userMeta)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
+        setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
     }
 };
 

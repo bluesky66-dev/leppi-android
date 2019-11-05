@@ -3,11 +3,12 @@ import {Image, TouchableOpacity, View} from 'react-native';
 import {DateInput, RegisterTextInput} from '../start';
 import infoStyles from '../../styles/auth/information'
 import defaultAvatar from "../../images/office-worker.png";
-import plusIcon from "../../images/plus.png";
+import plusIcon from "../../images/avatar-plus.png";
+import IconLoader from "../../images/blue_loading.gif";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 
-export default class InformationForm extends Component {
+class InformationForm extends Component {
 
     constructor(props) {
         super(props);
@@ -42,27 +43,50 @@ export default class InformationForm extends Component {
                 skipBackup: true,
             },
         };
-        ImagePicker.showImagePicker(options, (response) => {
-            //console.log('======= Response = ', response);
-            if (response.didCancel) {
-                //console.log('======= User cancelled image picker');
-            } else if (response.error) {
-                //console.log('======= ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                //console.log('======= User tapped custom button: ', response.customButton);
-            } else {
-                ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then((newImage) => {
-                    //console.log('newImage ===', newImage);
-                    let image: any = {};
-                    image.uri = newImage.uri;
-                    //console.log('image.uri', image.uri);
-                    image.path = 'users';
-                    modalThis.props.onChange({avatar: image});
-                    modalThis.setState({avatar: image});
-                }).catch((err) => {
-                });
-            }
-        });
+        try {
+            modalThis.props.setLoadingSpinner(true);
+            ImagePicker.showImagePicker(options, (response) => {
+                //console.log('======= Response = ', response);
+                if (response.didCancel) {
+                    //console.log('======= User cancelled image picker');
+                } else if (response.error) {
+                    //console.log('======= ImagePicker Error: ', response.error);
+                } else if (response.customButton) {
+                    //console.log('======= User tapped custom button: ', response.customButton);
+                } else {
+                    if (typeof response.uri !== 'undefined') {
+                        ImageResizer.createResizedImage(response.uri, 300, 300, 'JPEG', 70).then(async (newImage) => {
+                            //console.log('newImage ===', newImage);
+                            try {
+                                let image: any = {};
+                                image.uri = newImage.uri;
+                                //console.log('image.uri', image.uri);
+                                const uploadPath = await authActions.uploadFile(newImage.uri, 'users');
+                                console.log(uploadPath);
+                                modalThis.props.setLoadingSpinner(false);
+                                if (uploadPath) {
+                                    modalThis.props.onChange({avatar: uploadPath});
+                                }
+
+                                modalThis.setState({avatar: image});
+                            } catch (e) {
+                                console.log(e.message);
+                                modalThis.props.setLoadingSpinner(false);
+                            }
+                        }).catch((err) => {
+                            console.log(err.message);
+                            modalThis.props.setLoadingSpinner(false);
+                        });
+                    } else {
+                        modalThis.props.setLoadingSpinner(false);
+                    }
+                }
+                modalThis.props.setLoadingSpinner(false);
+            });
+        } catch (e) {
+            console.log(e.message);
+            modalThis.props.setLoadingSpinner(false);
+        }
     };
 
     render() {
@@ -84,8 +108,9 @@ export default class InformationForm extends Component {
                     <View style={infoStyles.avatarContainer}>
                         <Image style={this.state.avatar.uri ? infoStyles.realAvatar: infoStyles.defaultAvatar} source={avatarSource}/>
                     </View>
-                    <TouchableOpacity style={infoStyles.plusIcon} activeOpacity={0.8} onPress={() => this.handleChoosePhoto()}>
-                        <Image source={plusIcon} style={infoStyles.plusIconStyle}/>
+                    <TouchableOpacity style={infoStyles.plusIcon} activeOpacity={0.8} onPress={() => this.handleChoosePhoto()} disabled={this.props.isLoading}>
+                        {!this.props.isLoading && <Image source={plusIcon} style={infoStyles.plusIconStyle}/>}
+                        {this.props.isLoading && <Image source={IconLoader} style={infoStyles.plusIconStyle}/>}
                     </TouchableOpacity>
                 </View>
                 <View style={infoStyles.formContainer}>
@@ -127,3 +152,17 @@ export default class InformationForm extends Component {
         );
     }
 }
+
+function mapStateToProps(state, props) {
+    return {
+        isLoading: state.AuthReducer.isLoading,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InformationForm);

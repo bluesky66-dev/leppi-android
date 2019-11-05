@@ -579,6 +579,29 @@ export const fetchingUserGroups = async (userId, location, callback) => {
     }
 };
 
+export const uploadFile = async (filePath, dir) => {
+    try {
+        const filename = `${uuid()}.jpeg`; // Generate unique name
+        const uploadPath = `${dir}/${filename}`;
+        await firebase.storage().ref(uploadPath).putFile(filePath, {cacheControl: 'no-store',});
+        return uploadPath;
+    } catch (e) {
+        console.log('upload file error', e.message);
+        return false;
+    }
+
+}
+
+export const deleteFile = async (filePath, dir) => {
+    try {
+        await firebase.storage().ref(filePath).delete();
+        return true;
+    } catch (e) {
+        console.log('delete file error', e.message);
+        return false;
+    }
+}
+
 export const createFeed = (feed, userMeta) => {
     return async (dispatch, getState) => {
 

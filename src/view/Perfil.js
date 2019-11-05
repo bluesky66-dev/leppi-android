@@ -226,11 +226,11 @@ class Perfil extends Component {
                         </View>
                     </ScrollView>
                 </View>
-                <JoinGroupModal
+                {this.state.isJoinGroup && <JoinGroupModal
                     isVisible={this.state.isJoinGroup}
                     groupInfo={joinedGroup}
                     isVisibleJoinButton={false}
-                    onBackdropPress={()=>this.setState({isJoinGroup: false})}/>
+                    onBackdropPress={()=>this.setState({isJoinGroup: false})}/>}
             </View>
         );
     }
