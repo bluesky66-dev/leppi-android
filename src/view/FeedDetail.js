@@ -182,13 +182,12 @@ class FeedDetail extends Component {
                                     {feedInfo.product_desc ? feedInfo.product_desc : ''}
                                 </Text>
                             </View>
-                            {(feedInfo.feed_type === FeedTypes.solicitation) && <View style={styles.metaWrapper}>
+                            <View style={styles.metaWrapper}>
                                 <View style={styles.metaRow}>
                                     <Text style={[styles.metaRowLeft, styles.metaRowLeftL]}>Data: </Text>
                                     <Text style={styles.metaRowRight}>{est_date}</Text>
                                 </View>
                             </View>
-                            }
                             {(feedInfo.feed_type === FeedTypes.sell) && <View style={styles.metaWrapper}>
                                 <View style={styles.metaRow}>
                                     <Text style={styles.metaRowLeft}>Preço: </Text>
