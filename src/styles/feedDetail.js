@@ -1,5 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {widthPercentage as wp} from '../util';
+let deviceHeight = Dimensions.get('window').height
 
 module.exports = StyleSheet.create({
 
@@ -54,15 +55,16 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(43),
         paddingRight: wp(42),
         paddingBottom: wp(35),
-        minHeight: wp(500),
     },
 
     detailRed: {
         marginTop: wp(-35),
+        minHeight: deviceHeight - wp(267)
     },
 
     detailBlue: {
         marginTop: wp(135),
+        minHeight: deviceHeight - wp(135)
     },
 
     feedBadge: {

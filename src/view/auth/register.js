@@ -152,10 +152,8 @@ class Register extends Component {
         let step_index = this.state.step_index + 1;
         if (step_index >= 4) {
             navigate('Welcome');
-        } else if (step_index < 6) {
+        } else if (step_index < 4) {
             this.refs.swiper.scrollBy(1);
-        } else if (step_index === 6) {
-            navigate('Welcome');
         }
     }
 
