@@ -140,44 +140,30 @@ module.exports = StyleSheet.create({
         fontSize: wp(12),
         fontFamily: "Roboto-Regular",
     },
-    groupView: {
+    addressView: {
         alignSelf: 'center',
         marginTop: wp(21),
         width: wp(289),
         paddingLeft: wp(10),
         paddingRight: wp(10),
     },
-    groupViewRow: {
+    addressViewRow: {
         flexDirection: 'row',
         marginTop: wp(12)
     },
-    groupViewLeft: {
+    addressViewLeft: {
         color: "#3D3D3D",
         fontSize: wp(12),
         fontFamily: "Roboto-Regular",
         width: wp(57),
     },
-    groupViewRight: {
+    addressViewRight: {
         marginLeft: wp(8),
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap'
     },
-    userGroupBtn: {
-        backgroundColor: '#02C8A7',
-        borderRadius: wp(20),
-        width: wp(117),
-        height: wp(30),
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: wp(7),
-    },
-    userGroupBtnTxt: {
-        color: "#3D3D3D",
-        fontSize: wp(11),
-        fontFamily: "Raleway-Regular",
-        opacity: 0.4
-    },
+
     inviteWrapper: {
         width: wp(289),
         flexDirection: 'row',
@@ -226,22 +212,5 @@ module.exports = StyleSheet.create({
         fontSize: wp(11),
         fontFamily: "Raleway-Regular",
         opacity: 0.4
-    },
-
-    btnInfoGroup: {
-        marginTop: wp(23),
-        width: wp(300),
-        alignSelf: 'center',
-        backgroundColor: '#35d3b9',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: wp(38),
-        borderRadius: wp(35),
-    },
-
-    btnInfoGroupTxt: {
-        color: "#ffffff",
-        fontSize: wp(14),
-        fontFamily: "Raleway-SemiBold",
     },
 });

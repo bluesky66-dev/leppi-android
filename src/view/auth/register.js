@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as authActions from '../../redux/actions/AuthActions'; //Import your actions
-import {CreateGroup, CredentialsForm, InformationForm, JoinGroup, LocationForm} from "../../components/forms";
+import {CredentialsForm, InformationForm, LocationForm} from "../../components/forms";
 import {AppTopSection, RegisterButton} from "../../components/start";
 import styles from "../../styles/auth/auth";
 import {ScrollView, View} from "react-native";
 import Toast from 'react-native-simple-toast';
-import Swiper from  '../../components/swiper';
+import Swiper from '../../components/swiper';
 import * as utils from '../../util';
 import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
@@ -20,14 +20,10 @@ class Register extends Component {
             step_index: 1,
             userMeta: {},
             callingCode: '',
-            isJoinGroup: false,
         };
         this._onMomentumScrollEnd = this._onMomentumScrollEnd.bind(this);
         this._onNextStep = this._onNextStep.bind(this);
         this._onBackPress = this._onBackPress.bind(this);
-        this._onToCreateGroup = this._onToCreateGroup.bind(this);
-        this._onToJoinGroup = this._onToJoinGroup.bind(this);
-        this._toCreateGroupLink = this._toCreateGroupLink.bind(this);
         this._onChangeState = this._onChangeState.bind(this);
     }
 
@@ -152,43 +148,9 @@ class Register extends Component {
                 this.setState({userMeta: userMeta});
                 await this.props.createUserMeta(userMeta);
                 break;
-            case 4:
-
-                break;
-            case 5:
-                if (!state.group_name || state.group_name.length <= 0) {
-                    Toast.show('Enter group name', Toast.SHORT);
-                    return false;
-                }
-                if (!state.group_desc || state.group_desc.length <= 0) {
-                    Toast.show('Enter group description', Toast.SHORT);
-                    return false;
-                }
-                if (!state.group_code || state.group_code.length <= 0) {
-                    Toast.show('Enter access code', Toast.SHORT);
-                    return false;
-                }
-                let groupInfo = {
-                    userId: this.props.userId,
-                    group_name: state.group_name,
-                    group_desc: state.group_desc,
-                    group_code: state.group_code,
-                    city: state.city,
-                    street: state.street,
-                    district: state.district,
-                    country: state.country,
-                    cca2: state.cca2,
-                    location: state.location,
-                    createTime: Math.floor(Date.now()),
-                };
-                await this.props.createGroup(groupInfo, this.props.userMeta, this._gotoWelcome);
-                if (!this.props.groupId) {
-                    return false;
-                }
-                break;
         }
         let step_index = this.state.step_index + 1;
-        if (step_index === 5) {
+        if (step_index >= 4) {
             navigate('Welcome');
         } else if (step_index < 6) {
             this.refs.swiper.scrollBy(1);
@@ -206,26 +168,10 @@ class Register extends Component {
         }
     }
 
-    _onToCreateGroup = () => {
-        this.refs.swiper.scrollBy(1);
-    }
-
-    _onToJoinGroup = () => {
-        this.refs.swiper.scrollBy(2);
-    }
-
-    _toCreateGroupLink = () => {
-        this.refs.swiper.scrollBy(1);
-    }
 
     _onChangeState(state) {
         state = Object.assign({}, this.state, state);
         this.setState(state);
-    }
-
-    _onJoinGroup() {
-        const {navigate} = this.props.navigation;
-        navigate('Welcome');
     }
 
     render() {
@@ -274,13 +220,6 @@ class Register extends Component {
                         <View style={styles.swiperSlide}>
                             <CredentialsForm  onChange={this._onChangeState}/>
                         </View>
-                        <View style={styles.swiperSlide}>
-                            {(this.state.step_index === 4) && <JoinGroup toCreateGroup={this._toCreateGroupLink}
-                                onJoinGroup={()=>this._onJoinGroup()} userMeta={this.state.userMeta}/>}
-                        </View>
-                        <View style={styles.swiperSlide}>
-                            <CreateGroup onChange={this._onChangeState}/>
-                        </View>
                     </Swiper>
                     {
                         (this.state.step_index !== 6 && this.state.step_index !== 4) &&
@@ -302,7 +241,6 @@ function mapStateToProps(state, props) {
         userMeta: state.AuthReducer.userMeta,
         userId: state.AuthReducer.userId,
         isSignuped: state.AuthReducer.isSignuped,
-        groupId: state.AuthReducer.groupId,
         isLoading: Boolean(state.AuthReducer.isLoading),
         downloadURL: state.AuthReducer.downloadURL,
     }
@@ -314,7 +252,6 @@ const mapDispatchToProps = (dispatch) => {
         uploadMedia: (media) => dispatch(authActions.uploadMedia(media)),
         createUserMeta: (metaData) => dispatch(authActions.createUserMeta(metaData)),
         setUserMeta: (metaData) => dispatch(authActions.setUserMeta(metaData)),
-        createGroup: (gruop, userMeta, callback) => dispatch(authActions.createGroup(gruop, userMeta, callback)),
     }
 };
 

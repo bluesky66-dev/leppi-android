@@ -15,7 +15,7 @@ module.exports = StyleSheet.create({
     contentWrapper: {
     },
 
-    groupInfo: {
+    addressInfo: {
         width: wp(303),
         alignSelf: 'center',
         backgroundColor: '#e2e2e2',
@@ -28,7 +28,7 @@ module.exports = StyleSheet.create({
         paddingBottom: wp(9),
     },
 
-    groupInfoTxt: {
+    addressInfoTxt: {
         color: "#3d3d3d",
         fontSize: wp(11),
         fontFamily: "Rubik-Regular",

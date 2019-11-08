@@ -73,11 +73,6 @@ class Home extends Component {
             )
         });
 
-        let joinedGroup = {};
-        if (this.props.joinedGroup) {
-            joinedGroup = this.props.joinedGroup;
-        }
-
         return (
             <View style={styles.rootWrapper}>
                 <Spinner
@@ -88,9 +83,8 @@ class Home extends Component {
                 <View style={styles.container}>
                     <HeaderSection navigation={this.props.navigation}/>
                     <ScrollView style={styles.contentWrapper}>
-                        <View style={styles.groupInfo}>
-                            <Text style={styles.groupInfoTxt}>
-                                Você está no grupo <Text style={[styles.groupInfoTxt, {fontWeight: "bold"}]}>{joinedGroup.group_name?joinedGroup.group_name:''}</Text>. Código de Acesso <Text style={[styles.groupInfoTxt, {fontWeight: "bold"}]}>{joinedGroup.group_code?joinedGroup.group_code:''}</Text>. {"\n"}Convide seus vizinhos!
+                        <View style={styles.addressInfo}>
+                            <Text style={styles.addressInfoTxt}>
                             </Text>
                         </View>
                         <View style={styles.titleWrapper}>
@@ -98,8 +92,6 @@ class Home extends Component {
                         </View>
                         <View style={styles.typesWrapper}>
                             {typeBoxList}
-                        </View>
-                        <View style={styles.buttonGroup}>
                         </View>
                     </ScrollView>
                 </View>
@@ -128,9 +120,7 @@ function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
         userMeta: state.AuthReducer.userMeta,
-        joinedGroup: state.AuthReducer.joinedGroup,
         isSignuped: state.AuthReducer.isSignuped,
-        isJoinedGroup: state.AuthReducer.isJoinedGroup,
         isLoading: state.AuthReducer.isLoading,
     }
 }
