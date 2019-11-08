@@ -114,7 +114,7 @@ class SolicitationModal extends Component {
                 { isDateTimePickerVisible && <DateTimePicker
                     value={date}
                     mode={mode}
-                    display="default"
+                    display="spinner"
                     onChange={this.handleDatePicked} />
                 }
             </Modal>

@@ -101,7 +101,7 @@ module.exports = StyleSheet.create({
         backgroundColor: '#ffffff'
     },
     priceBox: {
-        width: wp(250),
+        width: wp(292),
         height: wp(32),
         flexDirection: 'row'
     },
@@ -146,11 +146,61 @@ module.exports = StyleSheet.create({
         fontSize: wp(9),
         fontFamily: "Raleway-Regular",
     },
+    daysLabel: {
+        height: wp(32),
+        borderTopRightRadius: wp(8),
+        borderBottomRightRadius: wp(8),
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingRight: wp(11),
+        paddingLeft: wp(3),
+        backgroundColor: '#FFFFFF',
+    },
+    daysTxt: {
+        color: "#3D3D3D",
+        fontSize: wp(9),
+        fontFamily: "Raleway-Regular",
+    },
+    estDateView: {
+        flexDirection: 'row',
+        marginTop: wp(14),
+        height: wp(32),
+    },
+    estDateLabel: {
+        backgroundColor: '#02C8A7',
+        borderTopLeftRadius: wp(8),
+        borderBottomLeftRadius: wp(8),
+        paddingLeft: wp(12),
+        paddingRight: wp(8),
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    estDateTxt: {
+        color: "#FFFFFF",
+        fontSize: wp(11),
+        fontFamily: "Raleway-Regular",
+    },
+    estDateInputView: {
+        flex: 1,
+        borderTopRightRadius: wp(8),
+        borderBottomRightRadius: wp(8),
+        paddingLeft: wp(7),
+        paddingRight: wp(7),
+        paddingTop: wp(7),
+        paddingBottom: wp(7),
+        backgroundColor: '#FFFFFF',
+        justifyContent: 'center',
+    },
+    estDateInput: {
+        color: "#3D3D3D",
+        fontSize: wp(14),
+        fontFamily: "Raleway-Medium",
+    },
     imageLabel: {
         color: "#3D3D3D",
         fontSize: wp(11),
         fontFamily: "Raleway-Regular",
-        marginTop: wp(55),
+        marginTop: wp(25),
     },
     imageGallery: {
         flexDirection: 'row',

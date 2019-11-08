@@ -346,6 +346,7 @@ export const createFeed = (feed, userMeta) => {
         dispatch(isLoading(true));
         //console.log('===== createFeed before', userMeta);
         try {
+            feed.location = userMeta.location;
             feed.createTime = Math.floor(Date.now());
             if (feed.gallery && feed.gallery.length > 0) {
                 let gallery = [];
@@ -584,7 +585,7 @@ export const onMessages = (roomId, callback) => {
                     msgId: snapshot.key,
                     ...snapshot.val()
                 };
-                //console.log('onMessages ===== ', message);
+                console.log('onMessages ===== ', message);
                 messages.push(message);
                 callback(messages);
             });

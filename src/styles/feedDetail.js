@@ -207,17 +207,17 @@ module.exports = StyleSheet.create({
         color: "#3D3D3D",
         fontSize: wp(14),
         fontFamily: "Raleway-Bold",
-        marginLeft: wp(8),
         fontWeight: 'bold',
-        flexWrap: 'wrap'
+        flex: 1,
     },
 
     metaRowUnit: {
+        marginLeft: wp(8),
         color: "#3D3D3D",
         fontSize: wp(14),
         fontFamily: "Raleway-Regular",
         paddingLeft: wp(3),
-        flex: 1,
+        flexWrap: 'wrap'
     },
 
     btnChatWrapper: {
