@@ -345,21 +345,10 @@ export const createFeed = (feed, userMeta) => {
         const userId = userMeta.userId;
         dispatch(isLoading(true));
         //console.log('===== createFeed before', userMeta);
+        if (! typeof feed.gallery_uris === 'undefined') delete feed.gallery_uris;
         try {
             feed.location = userMeta.location;
             feed.createTime = Math.floor(Date.now());
-            if (feed.gallery && feed.gallery.length > 0) {
-                let gallery = [];
-                let index;
-                for (index in feed.gallery) {
-                    let media = feed.gallery[index];
-                    const filename = `${uuid()}.jpeg`; // Generate unique name
-                    const uploadPath = `feeds/${userId}/${filename}`;
-                    await firebase.storage().ref(uploadPath).putFile(media, {cacheControl: 'no-store',});
-                    gallery.push(uploadPath);
-                }
-                feed.gallery = gallery;
-            }
             const feedId = await firebase.database()
                 .ref('feeds')
                 .push(feed).key;
@@ -390,6 +379,7 @@ export const createFeed = (feed, userMeta) => {
 
 export const fetchingFeeds = async (userMeta, page, callback) => {
     let feedList = [];
+    let TempList = [];
     // //console.log('===== fetchingFeeds');
     try {
         let requestConfig = {
@@ -407,10 +397,10 @@ export const fetchingFeeds = async (userMeta, page, callback) => {
         let respond = await fetch(url, requestConfig);
         let json = await respond.json();
         if (json.result && json.result === 'ok') {
-            feedList = json.list;
+            TempList = json.list;
         }
-        if (feedList.length > 0){
-            feedList.forEach(async item => {
+        if (TempList.length > 0){
+            TempList.forEach(async item => {
                 let feedItem = item;
                 if (feedItem.userId === userMeta.userId) {
                     feedItem.userMeta = userMeta;
@@ -716,5 +706,29 @@ export const updatePoints = (points) => {
     }
 };
 
+export const updateLocation = (userMeta) => {
+    return async (dispatch, getState) => {
+        dispatch(isLoading(true));
 
+        let location = {
+            address: userMeta.address,
+            city: userMeta.city,
+            street: userMeta.street,
+            district: userMeta.district,
+            country: userMeta.country,
+            cca2: userMeta.cca2,
+            location: userMeta.location,
+        };
 
+        try {
+            await firebase.database()
+                .ref('userMeta')
+                .child(userMeta.userId)
+                .update(location);
+
+            dispatch(fetchingUserMetaSuccess(userMeta));
+        } catch (e) {
+            dispatch(isLoading(false));
+        }
+    };
+};

@@ -42,6 +42,11 @@ class Perfil extends Component {
         await this.props.fetchLogout();
     }
 
+    changeLocation () {
+        const {navigate} = this.props.navigation;
+        navigate('EditLocation');
+    }
+
     render() {
 
         let avatarUrl = UserAvatar;
@@ -123,9 +128,9 @@ class Perfil extends Component {
                                 </View>
                             </View>
                             <View style={styles.btnBottomWrapper}>
-                                {/*<TouchableOpacity style={styles.btnBottom} onPress={() => ()}>*/}
-                                {/*    <Text style={styles.btnBottomTxt}>Mudar de Grupo</Text>*/}
-                                {/*</TouchableOpacity>*/}
+                                <TouchableOpacity style={styles.btnBottom} onPress={() => this.changeLocation()}>
+                                    <Text style={styles.btnBottomTxt}>Mudar Endereço</Text>
+                                </TouchableOpacity>
                                 <TouchableOpacity style={[styles.btnBottom, { marginRight: 0 }]} onPress={() => this._onLogout()}>
                                     <Text style={styles.btnBottomTxt}>Logout</Text>
                                 </TouchableOpacity>
