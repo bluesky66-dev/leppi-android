@@ -197,9 +197,7 @@ class FeedDetail extends Component {
                             </View>}
                             <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChatWrapper, disabledOpacity]} disabled={disabled}>
                                 <View style={[styles.btnChat, feedBadge]}>
-                                    <Text style={[styles.btnChatTxt, btnColor]}>
-                                        Chat
-                                    </Text>
+                                    <Text style={[styles.btnChatTxt, btnColor]}>Chat</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
