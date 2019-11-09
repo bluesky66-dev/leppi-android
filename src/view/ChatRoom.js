@@ -11,6 +11,7 @@ import IconAvatar from "../images/avatar.png";
 import IconIdea from "../images/idea.png";
 import IconMarker from "../images/maps-and-flags.png";
 import IconPaperClip from "../images/school-paper-clip.png";
+import backIcon from "../images/back_black.png";
 import * as authActions from "../redux/actions/AuthActions";
 
 class ChatRoom extends Component {
@@ -43,7 +44,7 @@ class ChatRoom extends Component {
     _onAttachFile(){
     }
 
-    _onSendMsg = () => {
+    _onSendMsg = async () => {
         if (!this.state.chat_msg) {
             return false;
         }
@@ -62,8 +63,13 @@ class ChatRoom extends Component {
             feedId: this.props.feedInfo.feedId,
         };
         //console.log('chat roomInfo', roomInfo);
-        authActions.sendMessage(this.props.userMeta, roomInfo, message);
+        await authActions.sendMessage(this.props.userMeta, roomInfo, message);
         this.setState({chat_msg: ''});
+    }
+
+    _onPressBack = () => {
+        const {navigate} = this.props.navigation;
+        navigate('Chat');
     }
 
     render() {
@@ -99,6 +105,9 @@ class ChatRoom extends Component {
                 />
                 <View style={styles.container}>
                     <HeaderSection navigation={this.props.navigation}/>
+                    <TouchableOpacity style={styles.backIcon} onPress={() => this._onPressBack()}>
+                        <Image source={backIcon} style={styles.backIconStyle}/>
+                    </TouchableOpacity>
                     <ScrollView style={styles.contentWrapper}>
                         <View style={styles.height22}/>
                         <View style={styles.otherView}>
