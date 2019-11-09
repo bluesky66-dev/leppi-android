@@ -379,7 +379,7 @@ export const createFeed = (feed, userMeta) => {
 
 export const fetchingFeeds = async (userMeta, page, callback) => {
     let feedList = [];
-    let TempList = [];
+    let tempList = [];
     // //console.log('===== fetchingFeeds');
     try {
         let requestConfig = {
@@ -397,10 +397,10 @@ export const fetchingFeeds = async (userMeta, page, callback) => {
         let respond = await fetch(url, requestConfig);
         let json = await respond.json();
         if (json.result && json.result === 'ok') {
-            TempList = json.list;
+            tempList = json.list;
         }
-        if (TempList.length > 0){
-            TempList.forEach(async item => {
+        if (tempList.length > 0){
+            tempList.forEach(async item => {
                 let feedItem = item;
                 if (feedItem.userId === userMeta.userId) {
                     feedItem.userMeta = userMeta;
