@@ -8,7 +8,7 @@ import {MENU_TYPES} from "../constants/menuTypes";
 import {FeedTypes} from "../constants/feedConstants";
 
 const REQUEST_URL = "http://leppi-api.cgem9zx2vz.us-east-2.elasticbeanstalk.com";
-// const REQUEST_URL = "http://192.168.207.174:8000";
+// const REQUEST_URL = "http://192.168.207.51:8000";
 
 export const updateMenu = currentMenu => ({
     type: CLICK_MENU,
@@ -397,13 +397,19 @@ export const updateFeed = (feedId, feed) => {
 export const deleteFeed = (feedId) => {
     return async (dispatch, getState) => {
         dispatch(isLoading(true));
-        console.log('Operation start', feedId);
         try {
-            await firebase.database()
-                .ref('feeds')
-                .child(feedId).remove(() => {
-                    console.log('Operation Complete', feedId);
-                });
+            let requestConfig = {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    feedId: feedId,
+                })
+            };
+            let url = REQUEST_URL + "/api/feeds/delete";
+            await fetch(url, requestConfig);
             dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
