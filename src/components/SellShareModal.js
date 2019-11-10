@@ -19,6 +19,7 @@ class SellShareModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            feedId: '',
             product_title: '',
             product_desc: '',
             product_qty: '',
@@ -56,6 +57,7 @@ class SellShareModal extends Component {
 
     clearForm = () => {
         this.setState({
+            feedId: '',
             product_title: '',
             product_desc: '',
             product_qty: '',

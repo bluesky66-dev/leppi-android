@@ -463,7 +463,7 @@ export const fetchingFeeds = async (userMeta, page, callback) => {
 
 export const filterMediaList = (gallery, callback) => {
     let itemList = [];
-    console.log('gallery', gallery);
+    // //console.log('===== filterMediaList');
     try {
         gallery.forEach(async item => {
             let downLoadUrl = await firebase.storage().ref(item).getDownloadURL();

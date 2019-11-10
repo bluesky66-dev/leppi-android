@@ -14,13 +14,6 @@ module.exports = StyleSheet.create({
         paddingTop: wp(45),
         paddingBottom: wp(30)
     },
-    bookMark: {
-        height: wp(30.8),
-        width: wp(20),
-        position: 'absolute',
-        right: wp(76),
-        top: 0,
-    },
     btnCloseModal: {
         position: 'absolute',
         top: wp(23.7),
@@ -43,7 +36,6 @@ module.exports = StyleSheet.create({
         height: wp(38),
         borderRadius: wp(35)
     },
-
     btnTxt: {
         color: "#ffffff",
         fontSize: wp(14),
