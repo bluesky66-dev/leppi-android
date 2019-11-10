@@ -10,6 +10,7 @@ import Swiper from '../../components/swiper';
 import {widthPercentage as wp} from '../../util';
 import {listenOrientationChange as lor, removeOrientationListener as rol} from 'react-native-responsive-screen';
 import Spinner from "react-native-loading-spinner-overlay";
+import {MENU_TYPES} from "../../redux/constants/menuTypes";
 
 class EditLocation extends Component {
     constructor(props) {
@@ -58,7 +59,8 @@ class EditLocation extends Component {
 
         await this.props.updateLocation(userMeta);
 
-        this.props.navigation.goBack();
+        this.props.clickMenu(MENU_TYPES.HOME);
+        navigate('Home');
     }
 
     _onBackPress = () => {
@@ -115,6 +117,7 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateLocation: (metaData) => dispatch(authActions.updateLocation(metaData)),
+        clickMenu: (type) => dispatch(authActions.clickMenu(type)),
     }
 };
 
