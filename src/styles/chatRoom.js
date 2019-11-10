@@ -93,7 +93,7 @@ module.exports = StyleSheet.create({
     },
 
     chatInput: {
-        width: wp(226),
+        width: wp(260),
         height: wp(47),
         color: "#3D3D3D",
         fontSize: wp(12),
