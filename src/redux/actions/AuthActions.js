@@ -5,6 +5,7 @@ import firebase from '@react-native-firebase/app'
 import Toast from 'react-native-simple-toast';
 import uuid from 'uuid/v4';
 import {MENU_TYPES} from "../constants/menuTypes";
+import {FeedTypes} from "../constants/feedConstants";
 
 const REQUEST_URL = "http://leppi-api.cgem9zx2vz.us-east-2.elasticbeanstalk.com";
 // const REQUEST_URL = "http://192.168.207.174:8000";
@@ -345,7 +346,7 @@ export const createFeed = (feed, userMeta) => {
         const userId = userMeta.userId;
         dispatch(isLoading(true));
         //console.log('===== createFeed before', userMeta);
-        if (! typeof feed.gallery_uris === 'undefined') delete feed.gallery_uris;
+        if (feed.feed_type === FeedTypes.sell) delete feed.mediaList;
         try {
             feed.location = userMeta.location;
             feed.createTime = Math.floor(Date.now());
@@ -371,6 +372,39 @@ export const createFeed = (feed, userMeta) => {
             };
             let url = REQUEST_URL + "/api/push/newFeed/";
             let respond = fetch(url, requestConfig);
+        } catch (e) {
+            dispatch(isLoading(false));
+        }
+    };
+};
+
+export const updateFeed = (feedId, feed) => {
+    return async (dispatch, getState) => {
+        console.log('feedId', feedId);
+        dispatch(isLoading(true));
+        try {
+            await firebase.database()
+                .ref('feeds')
+                .child(feedId)
+                .update(feed);
+            dispatch(isLoading(false));
+        } catch (e) {
+            dispatch(isLoading(false));
+        }
+    };
+};
+
+export const deleteFeed = (feedId) => {
+    return async (dispatch, getState) => {
+        dispatch(isLoading(true));
+        console.log('Operation start', feedId);
+        try {
+            await firebase.database()
+                .ref('feeds')
+                .child(feedId).remove(() => {
+                    console.log('Operation Complete', feedId);
+                });
+            dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
         }
@@ -427,9 +461,9 @@ export const fetchingFeeds = async (userMeta, page, callback) => {
     }
 };
 
-export const filterMediaGallery = (gallery, callback) => {
+export const filterMediaList = (gallery, callback) => {
     let itemList = [];
-    // //console.log('===== filterMediaGallery');
+    console.log('gallery', gallery);
     try {
         gallery.forEach(async item => {
             let downLoadUrl = await firebase.storage().ref(item).getDownloadURL();

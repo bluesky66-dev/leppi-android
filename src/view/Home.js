@@ -99,12 +99,14 @@ class Home extends Component {
                 {this.state.isSellShare && <SellShareModal
                     navigation={this.props.navigation}
                     isVisible={this.state.isSellShare}
+                    isEditAd={false}
                     feedCategory={this.state.feedCategory}
                     onBackdropPress={()=>this.setState({isSellShare: false})}/>}
                 {this.state.isSolicitation && <SolicitationModal
                     navigation={this.props.navigation}
                     feedCategory={this.state.feedCategory}
                     isVisible={this.state.isSolicitation}
+                    isEditAd={false}
                     onBackdropPress={()=>this.setState({isSolicitation: false})}/>}
                 {this.state.isSwitchModal && <SellShareSwitchModal
                     isVisible={this.state.isSwitchModal}
@@ -121,7 +123,6 @@ function mapStateToProps(state, props) {
     return {
         userId: state.AuthReducer.userId,
         userMeta: state.AuthReducer.userMeta,
-        isSignuped: state.AuthReducer.isSignuped,
         isLoading: state.AuthReducer.isLoading,
     }
 }

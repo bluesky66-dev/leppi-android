@@ -6,6 +6,7 @@ import UserAvatar from "../images/user-avatar.png";
 import IconClock from "../images/clock.png";
 import IconAvatar from "../images/avatar.png";
 import IconIdea from "../images/idea.png";
+import IconDot from "../images/icon-ddd.png";
 import IconMarker from "../images/maps-and-flags.png";
 import {FeedTypes} from "../redux/constants/feedConstants";
 import TimeAgo from 'javascript-time-ago';
@@ -25,6 +26,7 @@ class FeedItem extends Component {
         const {navigate} = this.props.navigation;
         navigate('FeedDetail', {feedInfo: this.props.feed, feedBadge: this.props.feedBadge});
     }
+
 
     render() {
         let feedInfo = {};
@@ -58,6 +60,9 @@ class FeedItem extends Component {
 
         return (
             <TouchableOpacity onPress={() => this._goToDetail()} style={styles.contentWrapper}>
+                <TouchableOpacity style={styles.iconDot} onPress={() => this.props.onAdAction(feedInfo)}>
+                    <Image source={IconDot} style={styles.iconDotStyle}/>
+                </TouchableOpacity>
                 <View style={[styles.feedBadge, feedBadge]}/>
                 <View style={styles.feedContent}>
                     <View style={styles.imageBox}>

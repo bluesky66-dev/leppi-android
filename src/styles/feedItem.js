@@ -12,6 +12,24 @@ module.exports = StyleSheet.create({
         elevation: 6,
         marginBottom: wp(10)
     },
+
+    iconDot: {
+        position: "absolute",
+        top: wp(7),
+        right: wp(15),
+        width: wp(22),
+        height: wp(22),
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+    },
+
+    iconDotStyle: {
+        width: wp(22),
+        height: wp(22),
+        resizeMode: 'contain',
+    },
+
     feedBadge: {
         width: wp(7),
         shadowOpacity: 0.16,

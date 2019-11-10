@@ -17,6 +17,7 @@ class SolicitationModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            feedId: '',
             product_title: '',
             product_desc: '',
             est_time: '',
@@ -26,6 +27,31 @@ class SolicitationModal extends Component {
 			isDateTimePickerVisible: false
         };
         this._onSolicitation = this._onSolicitation.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.props.isEditAd) {
+            this.setState({
+                feedId: this.props.feedInfo.feedId,
+                product_title: this.props.feedInfo.product_title,
+                product_desc: this.props.feedInfo.product_desc,
+                est_date: this.props.feedInfo.est_date,
+                date: new Date(this.props.feedInfo.est_date),
+            })
+        }
+    }
+
+    clearForm = () => {
+        this.setState({
+            feedId: '',
+            product_title: '',
+            product_desc: '',
+            est_time: '',
+            est_date: '',
+            mode: 'date',
+            date: new Date(),
+            isDatePickerVisible: false
+        });
     }
 
     async _onSolicitation() {
@@ -40,15 +66,27 @@ class SolicitationModal extends Component {
             Toast.show('Enter the description', Toast.SHORT);
             return false;
         }
+        if (this.props.isEditAd) {
+            let feedInfo = {
+                product_title: state.product_title,
+                product_desc: state.product_desc,
+                est_date: state.est_date,
+            };
+            await this.props.updateFeed(state.feedId, feedInfo);
+            this.clearForm();
+            this.props.onBackdropPress();
+            this.props.afterAction();
+        } else {
+            state.feed_category = this.props.feedCategory;
+            state.feed_type = FeedTypes.solicitation;
+            state.userId = this.props.userId;
+            await this.props.createFeed(state, this.props.userMeta);
+            this.clearForm();
+            this.props.onBackdropPress();
+            this.props.clickMenu(MENU_TYPES.FEED);
+            navigate('Feed');
+        }
 
-        state.feed_category = this.props.feedCategory;
-        state.feed_type = FeedTypes.solicitation;
-        state.userId = this.props.userId;
-        await this.props.createFeed(state, this.props.userMeta);
-        this.refs.modal.close();
-        this.props.onBackdropPress();
-        this.props.clickMenu(MENU_TYPES.FEED);
-        navigate('Feed');
     }
 
     showDateTimePicker = () => {
@@ -134,6 +172,7 @@ function mapStateToProps(state, props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         createFeed: (feed, userMeta) => dispatch(authActions.createFeed(feed, userMeta)),
+        updateFeed: (feedId, feed) => dispatch(authActions.updateFeed(feedId, feed)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
     }
 };
