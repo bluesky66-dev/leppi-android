@@ -1,63 +1,23 @@
 import React from 'react';
-import firebase from '@react-native-firebase/app'
 import AsyncStorage from '@react-native-community/async-storage';
+import {NotificationsAndroid} from 'react-native-notifications';
 
-export const getToken = async () => {
-    let fcmToken = await AsyncStorage.getItem('$leppiFCMToken');
-    //console.log('====== fcmToken', fcmToken);
-    if (!fcmToken) {
-        fcmToken = await firebase.messaging().getToken();
-        //console.log('====== fcmToken', fcmToken);
-        if (fcmToken) {
-            await AsyncStorage.setItem('$leppiFCMToken', fcmToken);
-        }
-    }
-   firebase.messaging().onTokenRefresh(async (fcmToken) => {
-        //console.log('New FCM Token:', fcmToken);
-
-        await AsyncStorage.setItem('$leppiFCMToken', fcmToken);
+export const registerDevice = () => {
+    NotificationsAndroid.setRegistrationTokenUpdateListener(async (deviceToken) => {
+        console.log('Push-notifications registered!', deviceToken);
+        await AsyncStorage.setItem('$leppiFCMToken', deviceToken);
     });
-}
-
-export const requestPermission = async () => {
-    firebase
-        .messaging()
-        .requestPermission()
-        .then(() => {
-            getToken();
-        })
-        .catch(error => {
-            console.warn(`${error} permission rejected`);
-        });
-}
-
-export const checkPermission = async () => {
-    const enabled = await firebase.messaging().hasPermission();
-    if (enabled) {
-        getToken();
-    } else {
-        requestPermission();
-    }
 };
 
-export const notificationListener = async () => {
-    //console.log('firebase.messaging().onMessag');
-    const unsubscribe = firebase.messaging().onMessage(async (remoteMessage) => {
-        //console.log('FCM Message Data:', remoteMessage.data);
-        // Update a users messages list using AsyncStorage
-        const currentMessages = await AsyncStorage.getItem('messages');
-        const messageArray = JSON.parse(currentMessages);
-        messageArray.push(remoteMessage.data);
-        await AsyncStorage.setItem('messages', JSON.stringify(messageArray));
+export const addListeners = () => {
+    // On Android, we allow for only one (global) listener per each event type.
+    NotificationsAndroid.setNotificationReceivedListener((notification) => {
+        console.log("Notification received on device in background or foreground", notification.getData());
     });
-}
-
-export const createChannel = () => {
-    firebase.messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-        // Update a users messages list using AsyncStorage
-        const currentMessages = await AsyncStorage.getItem('messages');
-        const messageArray = JSON.parse(currentMessages);
-        messageArray.push(remoteMessage.data);
-        await AsyncStorage.setItem('messages', JSON.stringify(messageArray));
+    NotificationsAndroid.setNotificationReceivedInForegroundListener((notification) => {
+        console.log("Notification received on device in foreground", notification.getData());
+    });
+    NotificationsAndroid.setNotificationOpenedListener((notification) => {
+        console.log("Notification opened by device user", notification.getData());
     });
 };

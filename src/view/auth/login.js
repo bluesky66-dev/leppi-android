@@ -85,7 +85,6 @@ class Login extends Component {
                         onPress={this.login.bind(this)} />
                     <View style={styles.thirdLoginWrapper}>
                         <View style={styles.thirdLoginContainer}>
-                            <Text style={[styles.generalText]}>{"or login through"}</Text>
                         </View>
                     </View>
                 </ScrollView>

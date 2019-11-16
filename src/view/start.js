@@ -32,9 +32,8 @@ class Start extends Component {
             BackHandler.exitApp();
         }
 
-        // push.checkPermission();
-        // push.notificationListener();
-        // push.createChannel();
+        push.registerDevice();
+        push.addListeners();
 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 

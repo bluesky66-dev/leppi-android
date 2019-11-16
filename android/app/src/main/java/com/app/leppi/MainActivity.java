@@ -35,6 +35,7 @@ public class MainActivity extends ReactActivity {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.INTERNET,
                     Manifest.permission.CAMERA,
+                    Manifest.permission.SYSTEM_ALERT_WINDOW,
                     Manifest.permission.RECORD_AUDIO,
                     Manifest.permission.VIBRATE,
                     Manifest.permission.ACCESS_WIFI_STATE,

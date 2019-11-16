@@ -71,7 +71,6 @@ class Feed extends Component {
 
     _onDelete = () => {
         const mainThis = this;
-        this.setState({openModal: false});
         Alert.alert(
             'Remove Image',
             'Are you sure you want to remove the ad?',
@@ -80,7 +79,7 @@ class Feed extends Component {
                     }, style: 'cancel'},
                 {text: 'OK', onPress: async () => {
                         mainThis.props.deleteFeed(mainThis.state.selectedFeed.feedId);
-                        mainThis.setState({selectedFeed: {}});
+                        mainThis.setState({selectedFeed: {}, openModal: false});
                         mainThis._onFetchingFeeds();
                     }},
             ],
@@ -89,7 +88,7 @@ class Feed extends Component {
     }
 
     render() {
-        let feedList = this.state.feedList.map((feed, i) => {
+        let feedList = this.state.feedList.reverse().map((feed, i) => {
             let feedBadge = 'red';
             if (feed.feed_type === FeedTypes.solicitation) {
                 feedBadge = 'blue';

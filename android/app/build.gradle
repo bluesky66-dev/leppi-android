@@ -131,10 +131,11 @@ android {
         applicationId "com.app.leppi"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 573
+        versionCode 576
         versionName "3.0.1"
 
         multiDexEnabled true
+        missingDimensionStrategy "RNNotifications.reactNativeVersion", "reactNative60"
     }
     splits {
         abi {
@@ -191,6 +192,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-notifications')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.karumi:dexter:6.0.0'
