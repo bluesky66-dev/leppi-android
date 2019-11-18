@@ -32,9 +32,6 @@ class Start extends Component {
             BackHandler.exitApp();
         }
 
-        push.registerDevice();
-        push.addListeners();
-
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
         let options = {
