@@ -775,3 +775,18 @@ export const updateLocation = (userMeta) => {
         }
     };
 };
+
+export const getCurrentTime = async () => {
+    try {
+        let respond = await fetch("http://worldclockapi.com/api/json/cst/now");
+        let json = await respond.json();
+        if (typeof json.currentDateTime !== 'undefined') {
+            // console.log("current time  ================", new Date(json.currentDateTime));
+            return new Date(json.currentDateTime);
+        }
+        return new Date();
+    } catch (e) {
+        console.log(e.message);
+        return new Date();
+    }
+}

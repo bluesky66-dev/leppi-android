@@ -10,7 +10,8 @@
     "bundle": "cd android && gradlew bundleRelease && cd ..",
     "assemble": "cd android && gradlew assembleRelease && cd ..",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "npx jetify"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.2",
