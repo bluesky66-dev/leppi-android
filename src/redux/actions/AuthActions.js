@@ -93,8 +93,9 @@ export const fetchLogin = (data, navigate) => {
                 })
                 .catch((error) => {
                     const {code, message} = error;
-                    dispatch(fetchingLoginFailure(error));
-                    Toast.show("Invalid email or password", Toast.SHORT);
+                    const errorMessage = message.replace(code, '').replace('[]', '');
+                    dispatch(fetchingLoginFailure(errorMessage));
+                    Toast.show(errorMessage, Toast.SHORT);
                 });
         } catch (e) {
             dispatch(isLoading(false));
@@ -155,9 +156,12 @@ export const fetchSignup = data => {
                 }
                 dispatch(fetchingSignupFailure('error'));
             }
-        } catch (e) {
+        } catch (error) {
             //console.log('fetchSignup error ======', e.message);
             dispatch(isLoading(false));
+            const {code, message} = error;
+            const errorMessage = message.replace(code, '').replace('[]', '');
+            Toast.show(errorMessage, Toast.SHORT);
         }
     };
 };
