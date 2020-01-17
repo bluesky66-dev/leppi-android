@@ -37,7 +37,7 @@ class ChatRoom extends Component {
         rol();
     }
 
-    _onChangeText = (text)=> {        
+    _onChangeText = (text)=> {
         this.setState({chat_msg: text})
     }
 
@@ -48,7 +48,7 @@ class ChatRoom extends Component {
         if (!this.state.chat_msg) {
             return false;
         }
-        
+
         let message = {
             content: this.state.chat_msg,
             sender: this.props.userId,
@@ -130,7 +130,7 @@ class ChatRoom extends Component {
                     <View style={styles.chatBtnBox}>
                         <TextInput
                             onChangeText={(text) => this._onChangeText(text)}
-                            placeholder={'Escreva para seu vizinho'}
+                            placeholder={'Escreva sua mensagem'}
                             multiline={true}
                             numberOfLines={1}
                             style={[styles.chatInput]}

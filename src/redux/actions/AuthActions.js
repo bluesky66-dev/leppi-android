@@ -346,17 +346,15 @@ export const deleteFile = async (filePath, dir) => {
 
 export const createFeed = (feed, userMeta) => {
     return async (dispatch, getState) => {
-
-        const userId = userMeta.userId;
         dispatch(isLoading(true));
         //console.log('===== createFeed before', userMeta);
         if (feed.feed_type === FeedTypes.sell) delete feed.mediaList;
         try {
             feed.location = userMeta.location;
             feed.createTime = Math.floor(Date.now());
-            const feedId = await firebase.database()
-                .ref('feeds')
-                .push(feed).key;
+            await firebase.firestore()
+                .collection('feeds')
+                .add(feed);
             let userPoints = userMeta.points ? userMeta.points : 0;
             userPoints += 10;
             userMeta.points = userPoints;
@@ -378,6 +376,7 @@ export const createFeed = (feed, userMeta) => {
             let respond = fetch(url, requestConfig);
         } catch (e) {
             dispatch(isLoading(false));
+            // console.log('create feed error === ', e.message)
         }
     };
 };
@@ -387,13 +386,13 @@ export const updateFeed = (feedId, feed) => {
         console.log('feedId', feedId);
         dispatch(isLoading(true));
         try {
-            await firebase.database()
-                .ref('feeds')
-                .child(feedId)
+            await firebase.firestore()
+                .doc('feeds/' + feedId)
                 .update(feed);
             dispatch(isLoading(false));
         } catch (e) {
             dispatch(isLoading(false));
+            // console.log('updateFeed === ', e.message)
         }
     };
 };
@@ -665,13 +664,11 @@ export const fetchingChatRooms = async (userData, callback) => {
                 if (snapshot.exists()) {
                     snapshot.forEach(async item => {
                         chatRoom = item.val();
-                        let feedSnapshot = await firebase.database()
-                            .ref('feeds')
-                            .child(snapshot.key)
-                            .once('value');
-                        if (feedSnapshot.exists()) {
-                            let feedItem = feedSnapshot.val();
-                            feedItem.feedId = feedSnapshot.key;
+                        let feedSnapshot = await firebase.firestore()
+                            .doc('feeds/' + snapshot.key).get();
+                        if (feedSnapshot.exists) {
+                            let feedItem = feedSnapshot.data();
+                            feedItem.feedId = feedSnapshot.id;
                             if (feedItem.userId === userData.userId) {
                                 feedItem.userMeta = userData;
                                 chatRoom.feedInfo = feedItem;

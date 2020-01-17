@@ -3,16 +3,15 @@ import {widthPercentage as wp} from '../util';
 
 module.exports = StyleSheet.create({
     contentWrapper: {
-        flexDirection: 'row',
-        backgroundColor: '#E8E8E8',
+        backgroundColor: '#ffffff',
         shadowOpacity: 0.16,
+        width: '100%',
         shadowRadius: wp(6),
         shadowColor: '#000000',
         shadowOffset: {height: wp(3), width: 0},
         elevation: 6,
         marginBottom: wp(10)
     },
-
     iconDot: {
         position: "absolute",
         top: wp(7),
@@ -23,112 +22,121 @@ module.exports = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'transparent',
     },
-
     iconDotStyle: {
         width: wp(22),
         height: wp(22),
         resizeMode: 'contain',
     },
-
-    feedBadge: {
-        width: wp(7),
-        shadowOpacity: 0.16,
-        shadowRadius: wp(2),
-        shadowColor: '#000000',
-        shadowOffset: {height: 0, width: wp(2)},
-        elevation: 6,
-    },
-    feedBadgeRed: {
-        backgroundColor: '#F63341',
-    },
-    feedBadgeBlue: {
-        backgroundColor: '#1C5596',
-    },
     feedContent: {
         flex: 1,
-        flexDirection: 'row',
     },
-    imageBox: {
-        width: wp(103),
+    userInfoRow: {
+        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: wp(10),
+        paddingLeft: wp(10)
     },
     thumbnail: {
-        width: wp(75),
-        height: wp(75),
-        borderRadius: wp(75/2),
+        width: wp(35),
+        height: wp(35),
+        borderRadius: wp(15),
         backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
     },
     thumbImage: {
-        width: wp(69),
-        height: wp(69),
-        borderRadius: wp(69/2),
+        width: wp(35),
+        height: wp(35),
+        borderRadius: wp(35/2),
+    },
+    userInfo: {
+        paddingLeft: wp(15)
+    },
+    usernameTxt: {
+        fontSize: wp(13),
+        fontFamily: "Raleway-Bold",
+    },
+    timeAgoTxt: {
+        color: '#3D3D3D',
+        fontSize: wp(10),
+        fontFamily: "Raleway-Medium",
     },
     descWrapper: {
-        flex: 1,
-        paddingLeft: wp(7),
-        paddingRight: wp(12),
-        paddingTop: wp(17),
+        paddingLeft: wp(60),
+        paddingRight: wp(50),
+        paddingTop: wp(12),
         paddingBottom: wp(15),
-        flexDirection: 'column',
     },
-    titleView:{
-        marginBottom: wp(10),
-    },
-    catTxt: {
-        color: "#3D3D3D",
-        fontSize: wp(10),
-        fontFamily: "Raleway-Medium",
+    descTxt: {
+        color: "#000000",
+        fontSize: wp(11),
+        fontFamily: "Raleway-Bold",
         marginBottom: wp(2),
     },
-    titleTxt: {
-        color: "#3D3D3D",
-        fontSize: wp(14),
-        fontFamily: "Raleway-Bold",
-        fontWeight: 'bold',
-    },
-    dateView: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: wp(10)
-    },
-    iconDate: {
-        width: wp(10),
-        height: wp(10),
-        marginRight: wp(4)
-    },
-    dateTxt: {
-        color: "#3D3D3D",
-        fontSize: wp(10),
-        fontFamily: "Raleway-Medium",
-    },
-    otherView: {
+    galleryRow: {
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
-    otherViewBox:{
-        flexDirection: 'row',
-        marginRight: wp(12),
-        alignItems: 'center',
+    galleryItem: {
+        width: wp(70),
+        height: wp(70),
+        borderRadius: wp(8),
+        marginBottom: wp(10)
     },
-    otherTxts:{
+    otherViewRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        position: 'relative'
+    },
+    otherTxts: {
         color: "#3D3D3D",
         fontSize: wp(10),
         fontFamily: "Raleway-Medium",
         marginLeft: wp(5)
     },
-    iconProfile: {
-        width: wp(9),
-        height: wp(10),
-    },
-    iconPoint: {
-        width: wp(6),
-        height: wp(10),
+    priceTxt: {
+        color: "#3D3D3D",
+        fontSize: wp(10),
+        fontFamily: "Raleway-Medium",
+        alignContent: 'flex-end',
+        position: 'absolute',
+        right: 0,
     },
     iconLocation: {
         width: wp(7),
         height: wp(10),
+    },
+    tagsRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingTop: wp(10),
+        paddingBottom: wp(10),
+    },
+    tagItem: {
+        backgroundColor: '#02C8A7',
+        padding: 5,
+        borderRadius: 12,
+        marginBottom: 5,
+        marginRight: 5
+    },
+    tagItemText: {
+        color: "#ffffff",
+        fontSize: wp(11),
+        fontFamily: "Raleway-Regular",
+    },
+    btnChat: {
+        backgroundColor: '#02C8A7',
+        height: wp(25),
+        width: wp(100),
+        borderRadius: wp(19),
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    btnChatTxt: {
+        color: "#ffffff",
+        fontSize: wp(12),
+        fontFamily: "Raleway-SemiBold",
     },
 });

@@ -10,15 +10,21 @@ import UserIcon from "../images/user.png";
 
 import * as authActions from "../redux/actions/AuthActions";
 import {MENU_TYPES} from "../redux/constants/menuTypes";
+import Toast from "react-native-simple-toast";
+import SellShareModal from "./SellShareModal";
 
 class HeaderSection extends Component {
 
     constructor(props) {
         super(props);
         this._onPressMenu = this._onPressMenu.bind(this);
+        this.state = {
+            isSellShare: false,
+        }
     }
 
-    _onPressList() {
+    _onSellShare = () => {
+        this.setState({isSellShare: true, isSwitchModal: false})
     }
 
     _onPressMenu(type) {
@@ -57,9 +63,8 @@ class HeaderSection extends Component {
                         <View style={styles.menuItem}><Image source={HomeIcon} style={styles.menuIcon}/></View>
                         {(this.props.currentMenu === MENU_TYPES.HOME) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.marginRight48]} onPress={()=>this._onPressMenu(MENU_TYPES.FEED)}>
+                    <TouchableOpacity style={[styles.marginRight48]} onPress={()=> this._onSellShare()}>
                         <View style={styles.menuItem}><Image source={AddIcon} style={styles.menuIcon}/></View>
-                        {(this.props.currentMenu === MENU_TYPES.FEED) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.marginRight50]} onPress={()=>this._onPressMenu(MENU_TYPES.CHAT)}>
                         <View style={styles.menuItem}><Image source={ChatIcon} style={styles.menuIcon}/></View>
@@ -70,6 +75,12 @@ class HeaderSection extends Component {
                         {(this.props.currentMenu === MENU_TYPES.PERFIL) && <View style={styles.menuActive}/>}
                     </TouchableOpacity>
                 </View>
+                {this.state.isSellShare && <SellShareModal
+                    navigation={this.props.navigation}
+                    isVisible={this.state.isSellShare}
+                    isEditAd={false}
+                    feedCategory={this.state.feedCategory}
+                    onBackdropPress={()=>this.setState({isSellShare: false})}/>}
             </View>
         );
     }

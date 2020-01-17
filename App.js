@@ -35,6 +35,7 @@ import '@react-native-firebase/auth';
 import '@react-native-firebase/database';
 import '@react-native-firebase/dynamic-links';
 import '@react-native-firebase/storage';
+import '@react-native-firebase/firestore';
 
 console.disableYellowBox = true;
 YellowBox.ignoreWarnings([
@@ -44,7 +45,7 @@ YellowBox.ignoreWarnings([
     'componentWillUpdate',
     'componentWillReceiveProps',
     '[location] ERROR - 0',
-    'Warning: DatePickerAndroid', 
+    'Warning: DatePickerAndroid',
     '`-[RCTRootView cancelTouches]`',
     '`-[RCTRootView cancelTouches]` is deprecated and will be deleted soon.',
   ]);

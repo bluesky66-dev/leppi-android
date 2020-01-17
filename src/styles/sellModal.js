@@ -23,7 +23,7 @@ module.exports = StyleSheet.create({
         height: wp(17),
         width: wp(55),
         borderRadius: wp(35),
-        backgroundColor: '#F63341',
+        backgroundColor: '#02C8A7',
         position: 'absolute',
         left: wp(44),
         top: wp(-8.5),
@@ -63,7 +63,7 @@ module.exports = StyleSheet.create({
         marginTop: wp(13)
     },
     priceAndQtyWrapper:{
-        marginTop: wp(42),
+        marginTop: wp(13),
         flexDirection: 'row'
     },
     qtyBox: {
@@ -197,10 +197,10 @@ module.exports = StyleSheet.create({
         fontFamily: "Raleway-Medium",
     },
     imageLabel: {
-        color: "#3D3D3D",
+        color: "#000000",
         fontSize: wp(11),
         fontFamily: "Raleway-Regular",
-        marginTop: wp(25),
+        marginTop: wp(8),
     },
     imageGallery: {
         flexDirection: 'row',
@@ -221,6 +221,12 @@ module.exports = StyleSheet.create({
         width: wp(47),
         height: wp(47),
     },
+    hashTagLabel: {
+        color: "#000000",
+        fontSize: wp(11),
+        fontFamily: "Raleway-Regular",
+        marginTop: wp(12),
+    },
     btnAddImage: {
         width: wp(47),
         height: wp(47),
@@ -233,10 +239,30 @@ module.exports = StyleSheet.create({
         width: wp(13.5),
         height: wp(13.5),
     },
+    defaultTags: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: wp(12),
+    },
+    tagItem: {
+        backgroundColor: '#02C8A7',
+        padding: 5,
+        borderRadius: 12,
+        marginBottom: 5,
+        marginRight: 5
+    },
+    tagItemActive: {
+        backgroundColor: '#154038',
+    },
+    tagItemText: {
+        color: "#ffffff",
+        fontSize: wp(11),
+        fontFamily: "Raleway-Regular",
+    },
     btnSellShare: {
         width: wp(143),
         height: wp(42),
-        backgroundColor: '#F63341',
+        backgroundColor: '#02C8A7',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: wp(21),
@@ -248,5 +274,17 @@ module.exports = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: wp(18),
         fontFamily: "Raleway-Bold",
-    }
+    },
+    extraTags: {
+        marginTop: wp(12),
+        fontFamily: "Raleway-Regular",
+        color: "#3D3D3D",
+        fontSize: wp(11),
+        textAlignVertical: 'top',
+        backgroundColor: "#ffffff",
+        padding: wp(10),
+        height: wp(50),
+        borderRadius: wp(8),
+    },
+
 });
