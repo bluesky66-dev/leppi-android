@@ -36,12 +36,14 @@ module.exports = StyleSheet.create({
     },
 
     titleWrapper: {
-        height: wp(15),
+        marginTop: wp(20),
+        paddingLeft: wp(40),
+        paddingRight: wp(40),
     },
 
     titleTxt: {
         color: "#3d3d3d",
-        fontSize: wp(19),
+        fontSize: wp(14),
         fontFamily: "Raleway-Bold",
     },
     titleSaleTxt: {
@@ -50,9 +52,47 @@ module.exports = StyleSheet.create({
 
     typesWrapper: {
         flexDirection: 'column',
-        paddingLeft: wp(16),
-        paddingRight: wp(16),
+        paddingLeft: wp(33),
+        paddingRight: wp(33),
         marginTop: wp(14),
-        paddingBottom: wp(100)
+        paddingBottom: wp(50)
+    },
+    typesBox: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingLeft: wp(33),
+        paddingRight: wp(15),
+        marginTop: wp(14),
+        paddingBottom: wp(15)
+    },
+
+    isSelected: {
+        borderRadius: wp(8),
+        backgroundColor: '#e2e2e2'
+    },
+
+    typeBox: {
+        width: wp(90),
+        marginRight: wp(15),
+        height: wp(80),
+        backgroundColor: '#ffffff',
+        borderRadius: wp(8),
+        marginBottom: wp(9),
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: wp(5)
+    },
+
+    typeIcon: {
+        width: wp(34),
+        height: wp(33),
+        marginBottom: wp(8)
+    },
+
+    typeTxt: {
+        color: "#3d3d3d",
+        fontSize: wp(10),
+        fontFamily: "Rubik-Regular",
+        textAlign: 'center',
     },
 });

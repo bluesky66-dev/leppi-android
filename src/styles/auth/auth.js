@@ -221,6 +221,7 @@ module.exports = StyleSheet.create({
         flex: 1,
         marginTop: wp(15),
         color: "#ffffff",
+        marginBottom: wp(30)
     },
     nextStepBtn: {
         color: "#ffffff",

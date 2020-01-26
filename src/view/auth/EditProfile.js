@@ -101,7 +101,7 @@ class EditProfile extends Component {
                     birth_date: state.birth_date,
                     avatar: this.props.downloadURL,
                     points: 0,
-                    createTime: Math.floor(Date.now()),
+                    updateTime: Math.floor(Date.now()),
                 };
                 this.setState({userMeta: userMeta});
                 await this.props.createUserMeta(userMeta);
@@ -109,7 +109,7 @@ class EditProfile extends Component {
         }
         let step_index = this.state.step_index + 1;
         if (step_index === 3) {
-            navigate('Welcome');
+            navigate.goBack();
         } else if (step_index < 3) {
             this.refs.swiper.scrollBy(1);
         }
