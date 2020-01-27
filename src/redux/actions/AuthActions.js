@@ -431,11 +431,10 @@ export const fetchingFeeds = (userMeta, page = 1) => {
             if (json.result && json.result === 'ok') {
                 tempList = json.list;
             }
-            if (tempList.length > 0){
+            if (tempList.length > 0) {
                 let DataPromises = [];
                 tempList.forEach(item => {
-
-                    DataPromises.push(new Promise( async function(resolve, reject) {
+                    DataPromises.push(new Promise(async (resolve, reject) => {
                         let feedItem = item;
                         if (feedItem.userId === userMeta.userId) {
                             feedItem.userMeta = userMeta;
@@ -452,7 +451,7 @@ export const fetchingFeeds = (userMeta, page = 1) => {
                         }
                     }));
                 });
-                Promise.all(DataPromises).then(response =>dispatch(setFeedList(response)))
+                Promise.all(DataPromises).then(response => dispatch(setFeedList(response)))
                 // feedList.push(feedItem);
             }
             dispatch(isLoading(false));
@@ -701,7 +700,7 @@ export const fetchingChatUsers = (roomInfo, page, callback) => {
                 if (snapshot.exists()) {
                     chatUser = snapshot.val();
 
-                    let userMetaSnapshot = await firebase.firestore().doc('userMeta/' +  chatUser.buyerId).get();
+                    let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + chatUser.buyerId).get();
                     let userMeta = userMetaSnapshot.data();
                     userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                     chatUser.userMeta = userMeta;
@@ -752,5 +751,40 @@ export const getCurrentTime = async () => {
     } catch (e) {
         console.log(e.message);
         return new Date();
+    }
+};
+
+export const fetchNewUsers = (callback) => {
+    let listData = [];
+    try {
+        let yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        console.log('Math.floor(yesterday)', Math.floor(yesterday));
+        firebase.firestore().collection('userMeta').where('createTime', '>', Math.floor(yesterday)).get()
+            .then((snapshot) => {
+                if (snapshot.empty) {
+                    callback(listData);
+                }
+                let promiseList = [];
+                snapshot.forEach(async doc => {
+                    promiseList.push(new Promise(async (resolve, reject) => {
+                        let userMeta = doc.data();
+                        if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+                            userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+                        }
+                        resolve(userMeta);
+                    }));
+                });
+                Promise.all(promiseList)
+                    .then(response => callback(response))
+                    .catch((error) => {
+                        callback(listData)
+                    });
+            })
+            .catch((error) => {
+                callback(listData);
+            });
+    } catch (e) {
+        callback(listData);
     }
 };

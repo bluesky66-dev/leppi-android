@@ -21,6 +21,7 @@ class Home extends Component {
         this.state = {
             page: 1,
             feedList: [],
+            newUserList: [],
             viewImage: [],
             imageIndex: 0,
             selectedFeed: {},
@@ -40,6 +41,7 @@ class Home extends Component {
         const {navigate} = this.props.navigation;
         await this.props.fetchingUserMeta(navigate);
         this._onFetchingFeeds();
+        this._onFetchNewUsers();
     }
 
     componentWillUnmount() {
@@ -48,6 +50,16 @@ class Home extends Component {
 
     _onFetchingFeeds = () => {
         this.props.fetchingFeeds(this.props.userMeta, this.state.page);
+    }
+
+    _onFetchNewUsers = () => {
+        const {setLoadingSpinner} = this.props;
+        const {setState} = this;
+        setLoadingSpinner(true);
+        authActions.fetchNewUsers((listData) => {
+            setLoadingSpinner(false);
+            setState({newUserList: listData});
+        })
     }
 
     _onSellShare = () => {
@@ -120,6 +132,8 @@ class Home extends Component {
     }
 
     render() {
+        const {newUserList} = this.state;
+        console.log('newUserList ===', newUserList);
         let feedList = this.props.feedList.map((feed, i) => {
             let feedBadge = 'red';
             if (feed.feed_type === FeedTypes.solicitation) {
