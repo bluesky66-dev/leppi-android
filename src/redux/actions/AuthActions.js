@@ -434,16 +434,17 @@ export const fetchingFeeds = (userMeta, page = 1) => {
             if (tempList.length > 0){
                 let DataPromises = [];
                 tempList.forEach(item => {
+                    console.log('userMeta.avatarUrl', userMeta.userId);
                     DataPromises.push(new Promise( async function(resolve, reject) {
                         let feedItem = item;
                         if (feedItem.userId === userMeta.userId) {
                             feedItem.userMeta = userMeta;
                             resolve(feedItem);
                         } else {
+                            console.log('userMeta.userId', userMeta.userId);
                             let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
 
                             let userMeta = userMetaSnapshot.data();
-                            console.log('userMeta.avatarUrl', userMeta);
                             if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
                                 userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                             }
