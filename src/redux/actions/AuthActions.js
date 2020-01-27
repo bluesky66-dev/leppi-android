@@ -751,4 +751,4 @@ export const getCurrentTime = async () => {
         console.log(e.message);
         return new Date();
     }
-}
+};
