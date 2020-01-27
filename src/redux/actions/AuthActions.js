@@ -443,7 +443,8 @@ export const fetchingFeeds = (userMeta, page = 1) => {
                             let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
 
                             let userMeta = userMetaSnapshot.data();
-                            if (typeof userMeta.avatarUrl !== 'undefined' && userMeta.avatarUrl) {
+                            console.log('userMeta.avatarUrl', userMeta);
+                            if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
                                 userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                             }
                             feedItem.userMeta = userMeta;
