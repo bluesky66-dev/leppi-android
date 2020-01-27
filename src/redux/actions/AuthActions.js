@@ -235,7 +235,7 @@ export const fetchingSocialMetaData = (userId, navigate) => {
 
             const userMetaSnapshot = await firebase.firestore().doc('userMeta/' + userId).get();
             dispatch(isLoading(false));
-            if (userMetaSnapshot.exists()) {
+            if (userMetaSnapshot.exists) {
                 navigate('Welcome');
             } else {
                 navigate('EditProfile');
@@ -337,7 +337,7 @@ export const deleteFile = async (filePath, dir) => {
 export const createFeed = (feed, userMeta) => {
     return async (dispatch, getState) => {
         dispatch(isLoading(true));
-        //console.log('===== createFeed before', userMeta);
+
         if (feed.feed_type === FeedTypes.sell) delete feed.mediaList;
         try {
             feed.location = userMeta.location;
