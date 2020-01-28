@@ -38,7 +38,7 @@ class NewUserItem extends Component {
     }
 
     render() {
-        const {userInfo} = this.props;
+        const {userInfo, userId} = this.props;
         let avatarImage = UserAvatar;
         if (userInfo.avatarUrl) {
             avatarImage = {uri: userInfo.avatarUrl};
@@ -52,6 +52,10 @@ class NewUserItem extends Component {
             username = userInfo.first_name + ' ' + userInfo.last_name;
         }
 
+        let disabled = false;
+        if (userId === userInfo.userId) {
+            disabled = true;
+        }
         return (
             <View style={styles.contentWrapper}>
                 <View style={styles.feedContent}>
@@ -73,9 +77,9 @@ class NewUserItem extends Component {
                             <Text style={styles.professionTxt}>Como posso ajudar meus vizinhos:</Text>
                             <Text style={styles.professionTxtBold}>{userInfo.user_options ? userInfo.user_options.join(", "): ''}</Text>
                         </View>
-                        <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChat]}>
+                        {!disabled && <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChat]}>
                             <Text style={[styles.btnChatTxt]}>Chat</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                     </View>
                 </View>
             </View>

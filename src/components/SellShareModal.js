@@ -109,7 +109,6 @@ class SellShareModal extends Component {
             this.props.setLoadingSpinner(false);
             this.clearForm();
         }
-        this.props.fetchingFeeds(this.props.userMeta, 1);
     }
 
     _onRemoveImage(index) {
