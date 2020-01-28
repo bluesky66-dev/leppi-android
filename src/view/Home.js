@@ -133,7 +133,6 @@ class Home extends Component {
 
     render() {
         const {newUserList} = this.state;
-        console.log('newUserList ===', newUserList);
         let feedList = this.props.feedList.map((feed, i) => {
             let feedBadge = 'red';
             if (feed.feed_type === FeedTypes.solicitation) {
