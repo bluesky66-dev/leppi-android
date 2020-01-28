@@ -55,7 +55,7 @@ module.exports = StyleSheet.create({
         paddingLeft: wp(33),
         paddingRight: wp(33),
         marginTop: wp(14),
-        paddingBottom: wp(50)
+        paddingBottom: wp(15)
     },
     typesBox: {
         flexDirection: 'row',

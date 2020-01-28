@@ -5,7 +5,6 @@ import styles from '../styles/feedItem';
 import UserAvatar from "../images/user-avatar.png";
 import IconDot from "../images/icon-ddd.png";
 import IconMarker from "../images/maps-and-flags.png";
-import {FeedTypes} from "../redux/constants/feedConstants";
 import TimeAgo from 'javascript-time-ago';
 import * as authActions from "../redux/actions/AuthActions";
 import en from 'javascript-time-ago/locale/en';
@@ -37,17 +36,18 @@ class FeedItem extends Component {
 
     async _chatWithSeller() {
         const {navigate} = this.props.navigation;
+        const {feed} = this.props;
 
-        if (!this.state.feedInfo) {
+        if (!feed) {
             return false;
         }
-        if (!this.state.disabled) {
+        if (this.props.userId !== feed.userId) {
             let roomInfo = {
                 buyerId: this.props.userId,
-                sellerId: this.state.feedInfo.userId,
-                feedId: this.state.feedInfo.feedId,
+                sellerId: feed.userId,
+                feedId: feed.feedId,
             };
-            await this.props.setChatFoodInfo(this.state.feedInfo);
+            await this.props.setChatFoodInfo(feed);
             await this.props.goToChatRoom(roomInfo);
             this.props.clickMenu(MENU_TYPES.CHAT);
             navigate('ChatRoom');
@@ -117,6 +117,10 @@ class FeedItem extends Component {
             </TouchableOpacity>
         });
 
+        let disabled = false;
+        if (this.props.userId === feedInfo.userId) {
+            disabled = true;
+        }
         return (
             <View style={styles.contentWrapper}>
                 {this.props.userId === feedInfo.userId && <TouchableOpacity style={styles.iconDot} onPress={() => this.props.onAdAction(feedInfo)}>
@@ -146,9 +150,9 @@ class FeedItem extends Component {
                             {renderDefaultTags}
                             {extraTags}
                         </View>
-                        <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChat]}>
+                        {!disabled && <TouchableOpacity onPress={() => this._chatWithSeller()} style={[styles.btnChat]}>
                             <Text style={[styles.btnChatTxt]}>Chat</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                     </View>
                 </View>
             </View>

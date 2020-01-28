@@ -13,6 +13,7 @@ import {FeedTypes} from '../redux/constants/feedConstants'
 import {FeedOptions} from '../redux/constants/feedOptions'
 import AdActionsModal from "../components/AdActionsModal";
 import FeedItem from "../components/FeedItem";
+import NewUserItem from "../components/NewUserItem";
 import ImageView from 'react-native-image-view';
 
 class Home extends Component {
@@ -40,8 +41,8 @@ class Home extends Component {
         lor(this);
         const {navigate} = this.props.navigation;
         await this.props.fetchingUserMeta(navigate);
-        this._onFetchingFeeds();
         this._onFetchNewUsers();
+        this._onFetchingFeeds();
     }
 
     componentWillUnmount() {
@@ -54,11 +55,10 @@ class Home extends Component {
 
     _onFetchNewUsers = () => {
         const {setLoadingSpinner} = this.props;
-        const {setState} = this;
         setLoadingSpinner(true);
         authActions.fetchNewUsers((listData) => {
             setLoadingSpinner(false);
-            setState({newUserList: listData});
+            this.setState({newUserList: listData});
         })
     }
 
@@ -149,6 +149,14 @@ class Home extends Component {
                     feedBadge={feedBadge}/>
             )
         });
+        let newUserView = newUserList.map((userInfo, i) => {
+            return(
+                <NewUserItem
+                    navigation={this.props.navigation}
+                    userInfo={userInfo}
+                    key={i}/>
+            )
+        });
 
         let feedCats = FeedOptions;
 
@@ -191,6 +199,9 @@ class Home extends Component {
                         </View>
                         <View style={styles.typesBox}>
                             {typeBoxList}
+                        </View>
+                        <View style={styles.typesWrapper}>
+                            {newUserView}
                         </View>
                         <View style={styles.typesWrapper}>
                             {feedList}

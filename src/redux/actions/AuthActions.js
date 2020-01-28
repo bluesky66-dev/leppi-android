@@ -759,16 +759,16 @@ export const fetchNewUsers = (callback) => {
     try {
         let yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
-        console.log('Math.floor(yesterday)', Math.floor(yesterday));
+
         firebase.firestore().collection('userMeta').where('createTime', '>', Math.floor(yesterday)).get()
             .then((snapshot) => {
                 if (snapshot.empty) {
                     callback(listData);
                 }
                 let promiseList = [];
-                snapshot.forEach(async doc => {
+                snapshot.forEach(doc => {
                     promiseList.push(new Promise(async (resolve, reject) => {
-                        let userMeta = doc.data();
+                        let userMeta = cloneDeep(doc.data());
                         if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
                             userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
                         }
@@ -778,6 +778,7 @@ export const fetchNewUsers = (callback) => {
                 Promise.all(promiseList)
                     .then(response => callback(response))
                     .catch((error) => {
+                        console.log('error', error.message);
                         callback(listData)
                     });
             })
