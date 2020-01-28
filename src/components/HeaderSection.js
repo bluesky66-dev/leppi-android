@@ -66,7 +66,6 @@ class HeaderSection extends Component {
 
     render() {
         const {isOpenPlus} = this.props;
-        console.log('isOpenPlus ====', isOpenPlus);
         return (
             <View style={styles.header}>
                 <View style={styles.logoWrapper}>
