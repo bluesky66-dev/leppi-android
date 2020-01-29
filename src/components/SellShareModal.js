@@ -314,7 +314,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createFeed: (feed, userMeta) => dispatch(authActions.createFeed(feed, userMeta)),
         updateFeed: (feedId, feed) => dispatch(authActions.updateFeed(feedId, feed)),
-        fetchingFeeds: (userMeta, page) => dispatch(authActions.fetchingFeeds(userMeta, page)),
         clickMenu: (type) => dispatch(authActions.clickMenu(type)),
         setLoadingSpinner: (loading) => dispatch(authActions.setLoadingSpinner(loading))
     }
