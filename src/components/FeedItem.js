@@ -47,8 +47,6 @@ class FeedItem extends Component {
             };
             await this.props.setChatFoodInfo(feed);
             await this.props.goToChatRoom(feed.userId, roomInfo);
-            this.props.clickMenu(MENU_TYPES.CHAT);
-            navigate('ChatRoom');
         }
     }
 

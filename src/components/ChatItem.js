@@ -26,7 +26,6 @@ class ChatItem extends Component {
                 users: [userId, chatRoom.userMeta.userId],
             };
             await this.props.goToChatRoom(chatRoom.userMeta.userId, roomInfo);
-            navigate('ChatRoom');
         }
     }
 

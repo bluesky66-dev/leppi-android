@@ -517,10 +517,10 @@ export const goToChatRoom = (userId, roomInfo) => {
                     roomItem.roomId = item.id;
                 });
             } else {
-                const roomId = await firebase.firestore()
+                const roomIdDoc = await firebase.firestore()
                     .collection('chatRooms')
-                    .add(roomInfo).id;
-                roomItem.roomId = roomId;
+                    .add(roomInfo);
+                roomItem.roomId = roomIdDoc.id;
             }
             let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + userId).get();
             let userMeta = userMetaSnapshot.data();
@@ -529,6 +529,8 @@ export const goToChatRoom = (userId, roomInfo) => {
             }
             roomItem.userMeta = userMeta;
             dispatch(setRoomInfo(roomItem));
+            dispatch(clickMenu(MENU_TYPES.CHAT));
+            NavigationService.navigateAndReset('ChatRoom');
         } catch (e) {
             console.log('goChatRoom', e.message);
             dispatch(isLoading(false));
