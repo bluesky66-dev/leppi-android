@@ -24,9 +24,6 @@ class FeedItem extends Component {
     }
 
     componentDidMount() {
-        authActions.filterMediaList(this.props.feed.gallery, itemList => {
-            this.setState({ gallery: itemList });
-        });
     }
 
     _goToDetail() {
@@ -80,14 +77,17 @@ class FeedItem extends Component {
                 },
             }
         });
-        let renderGallery = this.state.gallery.map((item, i) => {
-            return <TouchableOpacity
-                style={styles.galleryItemView}
-                onPress={() => onImageView(renderImageView, i)}
-            >
-                <Image source={{uri: item}} key={i} style={styles.galleryItem}/>
-            </TouchableOpacity>
-        });
+        let renderGallery = [];
+        if (feedInfo.galleryUrls && Array.isArray(feedInfo.galleryUrls)) {
+            renderGallery = feedInfo.galleryUrls.map((item, i) => {
+                return <TouchableOpacity
+                    style={styles.galleryItemView}
+                    onPress={() => onImageView(renderImageView, i)}
+                >
+                    <Image source={{uri: item}} key={i} style={styles.galleryItem}/>
+                </TouchableOpacity>
+            });
+        }
         let renderDefaultTags = feedInfo.defaultTags.map((tag, i) => {
             if (!tag){
                 return null

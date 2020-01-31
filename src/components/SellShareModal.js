@@ -12,7 +12,6 @@ import * as authActions from "../redux/actions/AuthActions";
 import {FeedTypes} from "../redux/constants/feedConstants";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
-import {MENU_TYPES} from "../redux/constants/menuTypes";
 import cloneDeep from 'lodash/cloneDeep';
 
 class SellShareModal extends Component {
@@ -47,22 +46,14 @@ class SellShareModal extends Component {
     componentDidMount() {
         if (this.props.isEditAd) {
             let feedInfo = this.props.feedInfo;
-            if (feedInfo && feedInfo.gallery && Array.isArray(feedInfo.gallery)) {
-                this.props.setLoadingSpinner(true);
-                authActions.filterMediaList(feedInfo.gallery, mediaList => {
-                    this.props.setLoadingSpinner(false);
-                    if (mediaList !== null) {
-                        this.setState({ mediaList: mediaList });
-                    }
-                });
-            }
             this.setState({
                 feedId: feedInfo.feedId,
-                extraTags: '',
-                defaultTags: [],
+                extraTags: feedInfo.extraTags,
+                defaultTags: feedInfo.defaultTags,
                 product_desc: feedInfo.product_desc,
                 product_price: feedInfo.product_price,
                 gallery: feedInfo.gallery,
+                galleryUrls: feedInfo.galleryUrls,
             })
         }
     }
@@ -88,6 +79,10 @@ class SellShareModal extends Component {
             Toast.show('Enter the description', Toast.SHORT);
             return false;
         }
+        if (!state.defaultTags || state.defaultTags.length <= 0) {
+            Toast.show('Must choose at least 1 hashtag', Toast.SHORT);
+            return false;
+        }
         if (this.props.isEditAd) {
             let feedInfo = {
                 product_desc: state.product_desc,
@@ -104,9 +99,7 @@ class SellShareModal extends Component {
             state.feed_type = FeedTypes.sell;
             state.userId = this.props.userId;
             this.props.onBackdropPress();
-            this.props.setLoadingSpinner(true);
             await this.props.createFeed(state, this.props.userMeta);
-            this.props.setLoadingSpinner(false);
             this.clearForm();
         }
     }
@@ -210,14 +203,18 @@ class SellShareModal extends Component {
     }
 
     render() {
-        let { defaultTags } = this.state;
-        let gallery = this.state.mediaList.map((image, i) => {
-            return (
-                <TouchableOpacity onPress={() => this._onRemoveImage(i)} style={styles.imageItem} key={i}>
-                    <Image source={{uri: image}} style={styles.imageView}/>
-                </TouchableOpacity>
-            )
-        });
+        let { defaultTags, galleryUrls } = this.state;
+        let gallery = [];
+        if (galleryUrls && Array.isArray(galleryUrls)) {
+            gallery = galleryUrls.map((image, i) => {
+                return (
+                    <TouchableOpacity onPress={() => this._onRemoveImage(i)} style={styles.imageItem} key={i}>
+                        <Image source={{uri: image}} style={styles.imageView}/>
+                    </TouchableOpacity>
+                )
+            });
+        }
+
 
         let renderDefaultTags = this.defaultTags.map((tag, i) => {
             const tagItemStyle = defaultTags.indexOf(tag) > -1 ? [styles.tagItem, styles.tagItemActive] : styles.tagItem;

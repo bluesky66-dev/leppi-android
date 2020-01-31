@@ -104,7 +104,6 @@ export const fetchLogin = (data, navigate) => {
         }
     };
 };
-
 //user register
 export const fetchingSignupRequest = () => ({type: TYPES.FETCHING_SIGNUP_REQUEST});
 
@@ -334,6 +333,39 @@ export const deleteFile = async (filePath, dir) => {
     }
 }
 
+export const filterFeed = async (feedData, userMeta) => {
+    let feedItem = feedData;
+    if (typeof feedItem.gallery !== 'undefined' && feedItem.gallery) {
+        let galleryPromises = [];
+        feedItem.gallery.forEach(async item => {
+            galleryPromises.push(new Promise( async (resolve, reject) => {
+                let downLoadUrl = await firebase.storage().ref(item).getDownloadURL();
+                resolve(downLoadUrl);
+            }));
+        });
+        const gallery = await Promise.all(galleryPromises);
+        feedItem.galleryUrls = gallery;
+    }
+    if (feedItem.userId === userMeta.userId) {
+        feedItem.userMeta = userMeta;
+        return feedItem;
+    } else {
+        let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
+
+        let userMeta = userMetaSnapshot.data();
+        if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
+            userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
+        }
+        feedItem.userMeta = userMeta;
+        return feedItem;
+    }
+};
+
+export const setNewFeed = json => ({
+    type: TYPES.SET_NEW_FEED,
+    payload: json
+});
+
 export const createFeed = (feed, userMeta) => {
     return async (dispatch, getState) => {
         dispatch(isLoading(true));
@@ -440,20 +472,8 @@ export const fetchingFeeds = (userMeta, page = 1, callback) => {
                         let DataPromises = [];
                         tempList.forEach(item => {
                             DataPromises.push(new Promise(async (resolve, reject) => {
-                                let feedItem = item;
-                                if (feedItem.userId === userMeta.userId) {
-                                    feedItem.userMeta = userMeta;
-                                    resolve(feedItem);
-                                } else {
-                                    let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + feedItem.userId).get();
-
-                                    let userMeta = userMetaSnapshot.data();
-                                    if (typeof userMeta.avatar !== 'undefined' && userMeta.avatar) {
-                                        userMeta.avatarUrl = await firebase.storage().ref(userMeta.avatar).getDownloadURL();
-                                    }
-                                    feedItem.userMeta = userMeta;
-                                    resolve(feedItem);
-                                }
+                                let feedItem = await filterFeed(item, userMeta);
+                                resolve(feedItem);
                             }));
                         });
                         Promise.all(DataPromises).then(response => callback(response))
@@ -462,7 +482,7 @@ export const fetchingFeeds = (userMeta, page = 1, callback) => {
                         callback(feedList);
                     }
                 } catch (e) {
-                    console.log('e ===', e.message);
+                    // console.log('e ===', e.message);
                     callback(feedList);
                 }
             },
@@ -472,12 +492,21 @@ export const fetchingFeeds = (userMeta, page = 1, callback) => {
 export const filterMediaList = (gallery, callback) => {
     let itemList = [];
     // //console.log('===== filterMediaList');
+    let promiseList = [];
     try {
         gallery.forEach(async item => {
-            let downLoadUrl = await firebase.storage().ref(item).getDownloadURL();
-            itemList.push(downLoadUrl);
-            callback(itemList);
+            promiseList.push(new Promise( async (resolve, reject) => {
+                let downLoadUrl = await firebase.storage().ref(item).getDownloadURL();
+                resolve(downLoadUrl);
+            }));
         });
+        Promise.all(promiseList)
+            .then((response) => {
+                callback(response);
+            })
+            .catch((error) => {
+                callback(itemList);
+            });
     } catch (e) {
         callback(itemList);
     }
@@ -504,12 +533,13 @@ export const setRoomInfo = json => ({
 export const goToChatRoom = (userId, roomInfo) => {
     return async dispatch => {
         let roomItem = cloneDeep(roomInfo);
+        roomItem.users = roomItem.users.sort();
         dispatch(isLoading(true));
         try {
-            roomInfo.createTime = Math.floor(Date.now());
+            roomItem.createTime = Math.floor(Date.now());
             let existRoom = await firebase.firestore()
                 .collection('chatRooms')
-                .where('users', '==', roomInfo.users)
+                .where('users', '==', roomItem.users)
                 .get();
 
             if (!existRoom.empty) {
@@ -519,7 +549,7 @@ export const goToChatRoom = (userId, roomInfo) => {
             } else {
                 const roomIdDoc = await firebase.firestore()
                     .collection('chatRooms')
-                    .add(roomInfo);
+                    .add(roomItem);
                 roomItem.roomId = roomIdDoc.id;
             }
             let userMetaSnapshot = await firebase.firestore().doc('userMeta/' + userId).get();

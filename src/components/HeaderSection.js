@@ -30,6 +30,7 @@ class HeaderSection extends Component {
 
     _onPressMenu(type) {
         const {navigate} = this.props.navigation;
+        console.log('menu type ===== ', type);
 
         this.props.clickMenu(type);
         if (this.props.currentMenu === type && this.props.currentMenu !== MENU_TYPES.CHAT) {
