@@ -30,13 +30,13 @@ import ChatUsers from "./src/view/ChatUsers";
 import EditProfile from "./src/view/auth/EditProfile";
 import EditOptions from "./src/view/auth/EditOptions";
 import EditLocation from "./src/view/auth/EditLocation";
-
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
 import '@react-native-firebase/database';
 import '@react-native-firebase/dynamic-links';
 import '@react-native-firebase/storage';
 import '@react-native-firebase/firestore';
+import '@react-native-firebase/messaging';
 
 console.disableYellowBox = true;
 YellowBox.ignoreWarnings([
@@ -82,7 +82,8 @@ const InitialNavigator = createSwitchNavigator({
 const AppContainer = createAppContainer(InitialNavigator);
 
 class App extends React.Component {
-    componentDidMount() {
+
+    async componentDidMount() {
         lor(this);
     }
 
