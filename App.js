@@ -83,7 +83,7 @@ const AppContainer = createAppContainer(InitialNavigator);
 
 class App extends React.Component {
 
-    async componentDidMount() {
+    componentDidMount() {
         lor(this);
     }
 
